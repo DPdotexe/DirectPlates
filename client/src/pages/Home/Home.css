@@ -1,0 +1,102 @@
+/* Stile del contenitore principale */
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  padding: 40px;
+  margin-top: 60px;
+}
+
+/* Stile del contenitore principale con il testo di benvenuto */
+.home-container {
+  text-align: center;
+  margin-top:40px;
+}
+
+.home-title {
+  font-size: 2.5rem;
+  color: #E34234;
+}
+
+.home-description {
+  font-size: 1.5rem;
+  color: #666;
+  margin-top: 20px;
+}
+
+/* Stile della sezione di chiamata all'azione */
+.call-to-action {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.register-button,
+.menu-button {
+  background-color: #E34234;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 10px; /* Aggiunto margine sinistro */
+  margin-top:10px
+}
+
+.register-button:hover,
+.menu-button:hover {
+  background-color: #C3291D;
+}
+.register-button{
+ margin-right:550px;
+ margin-top:10px;
+}
+
+/* Stile del contenitore con l'immagine principale in alto a destra */
+.image-order {
+  text-align: right;
+  margin-top:40px;
+}
+
+.image {
+  max-width: 50%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Stile del contenitore con l'immagine del delivery in basso a sinistra */
+.delivery-imagine {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.delivery-image {
+  max-width: 90%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top:80px;
+}
+
+/* Stile del contenitore per il testo di consegna */
+.delivery-container {
+  text-align: right;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin-top:80px;
+}
+
+.delivery-title {
+  font-size: 2.5rem;
+  color: #E34234;
+  margin-bottom: 10px;
+}
+
+.delivery-description {
+  font-size: 1.5rem;
+  color: #666;
+}

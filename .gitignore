@@ -1,0 +1,8 @@
+# Node.js
+node_modules/
+
+# Directory specifica del client
+/client/node_modules/
+
+# Directory specifica del server
+/server/node_modules/

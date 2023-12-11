@@ -1,0 +1,22 @@
+/* Footer.css */
+
+.footer {
+    background-color: #E34234;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed; /* Cambiato da `absolute` a `fixed` */
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer p {
+    margin: 8px 0;
+  }
+  
