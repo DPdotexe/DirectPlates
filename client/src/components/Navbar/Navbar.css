@@ -1,0 +1,63 @@
+/* Navbar.css */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #E34234; /* Colore amaranto */
+  color: white;
+  padding: 20px;
+  z-index: 1000; /* Assicura che la Navbar sia sopra gli altri elementi */
+}
+
+.logo {
+  font-size: 1.5rem; /* Dimensione del testo del logo */
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 20px;
+  margin-right: 25px; /* Aggiungi margine sinistro per spostare a sinistra i link */
+}
+
+.nav-link,
+.login-link,
+.signup-link {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  transition: color 0.3s;
+}
+
+.nav-link:hover,
+.login-link:hover,
+.signup-link:hover {
+  text-decoration: none; /* Rimuovi la sottolineatura durante l'effetto hover */
+  color: #ffcc00; /* Cambia il colore allo hover */
+}
+/* Navbar.css */
+
+.cart-button {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  display: flex;
+  align-items: center; /* Allinea l'icona e il conteggio verticalmente */
+  position: relative; /* Per posizionare il conteggio all'interno del carrello */
+  margin-right:30px;
+}
+
+.cart-count {
+  background-color: red; /* Colore di sfondo del conteggio */
+  color: white;
+  border-radius: 50%;
+  padding: 4px 8px;
+  font-size: 12px;
+  position: absolute; /* Posiziona il conteggio in modo assoluto rispetto al carrello */
+  top: 0; /* Allinea il conteggio in alto */
+  right: 0; /* Allinea il conteggio a destra */
+}
