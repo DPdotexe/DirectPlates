@@ -1,6 +1,7 @@
+// cartActions.js
+
 import { createAction } from '@reduxjs/toolkit';
 
-// Definisci le azioni qui
-export const addToCart = createAction('cart/addToCart');
-export const removeFromCart = createAction('cart/removeFromCart');
-// Aggiungi altre azioni se necessario
+export const addToCart = createAction('ADD_TO_CART');
+export const removeFromCart = createAction('REMOVE_FROM_CART');
+export const updateCartItemQuantity = createAction('UPDATE_CART_ITEM_QUANTITY');

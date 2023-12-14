@@ -1,8 +1,24 @@
 # Node.js
 node_modules/
 
-# Directory specifica del client
-/client/node_modules/
+# Logs
+logs/
+*.log
 
-# Directory specifica del server
-/server/node_modules/
+# Dependency directories
+pids/
+logs/
+results/
+build/
+
+# dotenv environment variables file
+.env
+
+# Visual Studio Code settings
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db

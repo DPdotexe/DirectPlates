@@ -1,24 +1,35 @@
+// index.js
+
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
+const connectDB = require('./config/database');
+require('dotenv').config({ path: '../.env' }); // Aggiungi questa riga
 
 const app = express();
-const port = process.env.PORT || 27017;
+const port = process.env.PORT || 3000;
 
+// Configurazione middleware
 app.use(cors());
 app.use(express.json());
 
-// Connessione al database MongoDB
-mongoose.connect('mongodb://localhost:27017/mydb', {
-})
-  .then(() => {
-    console.log('Connected to MongoDB');
-    // Definisci i tuoi modelli e le tue route qui
-  })
-  .catch((error) => {
-    console.error('Error connecting to MongoDB:', error.message);
-  });
+// Middleware di logging
+app.use((req, res, next) => {
+  console.log(`Richiesta ricevuta: ${req.method} ${req.url}`);
+  next();
+});
 
+// Connessione al database MongoDB
+connectDB();
+
+// Rotte per l'autenticazione
+app.use('/auth', require('./routes/auth'));
+
+// Rotte di esempio
+app.get('/', (req, res) => {
+  res.send('Hello, this is your server!');
+});
+
+// Avvio del server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
