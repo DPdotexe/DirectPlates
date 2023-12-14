@@ -13,7 +13,8 @@ import About from './pages/About/About';
 import SignUp from './pages/SignUp/SignUp';
 import Cart from './components/Cart/Cart';
 import Checkout from './pages/CheckOut/CheckOut';
-import Footer from './components/Footer/Footer'; // Importa il componente Footer
+
+
 
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -54,19 +55,7 @@ const App = () => {
             <Cart cartItems={cartItems} removeFromCart={removeFromCart} onCloseCart={handleCloseCart} />
           )}
 
-          <Footer /> {/* Aggiunto il componente Footer alla fine della tua pagina */}
-
-          <ToastContainer
-            position="top-right"
-            autoClose={2000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-          />
+          <ToastContainer position="top-right" autoClose={4000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
         </div>
       </Router>
     </Provider>

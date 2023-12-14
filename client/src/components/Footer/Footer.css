@@ -1,24 +1,22 @@
+/* Footer.css */
+
 .footer {
-  background-color: #E34234;
-  color: white;
-  padding: 20px;
-  text-align: center;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  box-sizing: border-box;
-  z-index: 1000; /* Aggiunto uno z-index per assicurarsi che il footer sia sopra il contenuto */
-}
-
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  box-sizing: border-box;
-}
-
-.footer p {
-  margin: 8px 0;
-}
+    background-color: #E34234;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: fixed; /* Cambiato da `absolute` a `fixed` */
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .footer p {
+    margin: 8px 0;
+  }
+  

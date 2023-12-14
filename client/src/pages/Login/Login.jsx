@@ -1,8 +1,9 @@
+// Login.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
-import { Helmet } from 'react-helmet-async';
-import './Login.css';
+import { Helmet } from 'react-helmet-async'; // Importa Helmet da react-helmet-async
+import './Login.css'; // Importa i tuoi stili CSS
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,21 +12,14 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      // Make a login request to your backend
-      const response = await Axios.post('http://localhost:3000/auth/login', { email, password });
+      // Make the login request to your backend
+      const response = await Axios.post('/api/login', { email, password });
 
-      // Handle the response, for example, save the access token in your state or cookies
-      // Redirect the user to a protected page or the home
+      // Handle the response, e.g., save the access token in your state or cookies
+      // Redirect the user to a protected page or the home page
     } catch (error) {
       console.error('Error during login:', error);
       setError('Invalid credentials. Please try again.');
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    // If the "Enter" key is pressed, perform the login
-    if (e.key === 'Enter') {
-      handleLogin();
     }
   };
 
@@ -43,7 +37,6 @@ const Login = () => {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         className="input"
-        onKeyDown={handleKeyDown} 
       />
       <label className="label">Password:</label>
       <input
@@ -51,7 +44,6 @@ const Login = () => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         className="input"
-        onKeyDown={handleKeyDown}
       />
       <button onClick={handleLogin} className="button">
         Login

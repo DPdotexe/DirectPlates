@@ -1,7 +1,5 @@
-// reducers/cartReducer.js
-
 import { createReducer } from '@reduxjs/toolkit';
-import { addToCart, removeFromCart, updateCartItemQuantity } from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions'; 
 
 const initialState = {
   items: [],
@@ -12,7 +10,7 @@ const cartReducer = createReducer(initialState, (builder) => {
     .addCase(addToCart, (state, action) => {
       return {
         ...state,
-        items: [...state.items, { ...action.payload, quantity: 1 }],
+        items: [...state.items, action.payload],
       };
     })
     .addCase(removeFromCart, (state, action) => {
@@ -20,16 +18,6 @@ const cartReducer = createReducer(initialState, (builder) => {
       return {
         ...state,
         items: newItems,
-      };
-    })
-    .addCase(updateCartItemQuantity, (state, action) => {
-      const { index, newQuantity } = action.payload;
-      const updatedItems = state.items.map((item, i) =>
-        i === index ? { ...item, quantity: newQuantity } : item
-      );
-      return {
-        ...state,
-        items: updatedItems,
       };
     });
 });

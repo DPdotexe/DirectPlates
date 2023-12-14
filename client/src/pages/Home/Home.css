@@ -1,4 +1,4 @@
-/* Stile del contenitore principale (non responsivo) */
+/* Stile del contenitore principale */
 .container {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -10,7 +10,7 @@
 /* Stile del contenitore principale con il testo di benvenuto */
 .home-container {
   text-align: center;
-  margin-top: 40px;
+  margin-top:40px;
 }
 
 .home-title {
@@ -41,23 +41,23 @@
   border-radius: 5px;
   text-decoration: none;
   cursor: pointer;
-  margin-left: 10px;
-  margin-top: 10px;
+  margin-left: 10px; /* Aggiunto margine sinistro */
+  margin-top:10px
 }
 
 .register-button:hover,
 .menu-button:hover {
   background-color: #C3291D;
 }
-.register-button {
-  margin-right: 550px;
-  margin-top: 10px;
+.register-button{
+ margin-right:550px;
+ margin-top:10px;
 }
 
 /* Stile del contenitore con l'immagine principale in alto a destra */
 .image-order {
   text-align: right;
-  margin-top: 40px;
+  margin-top:40px;
 }
 
 .image {
@@ -79,8 +79,7 @@
   height: auto;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 80px;
-  margin-bottom: 80px;
+  margin-top:80px;
 }
 
 /* Stile del contenitore per il testo di consegna */
@@ -88,7 +87,7 @@
   text-align: right;
   padding: 20px;
   background-color: rgba(255, 255, 255, 0.8);
-  margin-top: 80px;
+  margin-top:80px;
 }
 
 .delivery-title {
@@ -101,163 +100,3 @@
   font-size: 1.5rem;
   color: #666;
 }
-
-/* Media query per dispositivi con schermi più stretti */
-@media only screen and (max-width: 768px) {
-  /* Aggiustamenti per rendere il layout più responsivo */
-  .container {
-    grid-template-columns: 1fr;
-    padding: 20px;
-  }
-
-  .image-order,
-  .delivery-imagine {
-    text-align: center;
-  }
-
-  .image,
-  .delivery-image {
-    max-width: 100%;
-    margin: 20px 0;
-  }
-
-  .register-button {
-    margin-right: 0;
-  }
-
-  /* Spostiamo la parte del "Delivery Container" prima della "Delivery Imagine" */
-  .delivery-imagine {
-    order: 1; /* Imposta l'ordine prima di default */
-    margin-bottom:80px;
-  }
-
-  .delivery-container {
-    margin-bottom: 20px; /* Aggiungiamo un margine inferiore */
-  }
-}
-/* Media query per dispositivi con risoluzione 820x1180 */
-@media only screen and (max-width: 820px) and (max-height: 1180px) {
-  /* Inserisci qui le tue regole CSS per adattare il layout a questa risoluzione */
-  .container {
-    grid-template-columns: 1fr;
-    padding: 20px;
-  }
-
-  .image-order,
-  .delivery-imagine {
-    text-align: center;
-  }
-
-  .image,
-  .delivery-image {
-    max-width: 100%;
-    margin: 20px 0;
-  }
-
-  .register-button {
-    margin-right: 0;
-  }
-
-  .delivery-imagine {
-    order: 1;
-  }
-
-  .delivery-container {
-    margin-bottom: 20px;
-  }
-}
-/* Media query per dispositivi con risoluzione 1024x1366 */
-@media only screen and (max-width: 1024px) and (max-height: 1366px) {
-  /* Inserisci qui le tue regole CSS per adattare il layout a questa risoluzione */
-  .container {
-    grid-template-columns: 1fr;
-    padding: 20px;
-  }
-
-  .image-order,
-  .delivery-imagine {
-    text-align: center;
-  }
-
-  .image,
-  .delivery-image {
-    max-width: 100%;
-    margin: 20px 0;
-  }
-
-  .register-button {
-    margin-right: 0;
-  }
-
-  .delivery-imagine {
-    order: 1;
-  }
-
-  .delivery-container {
-    margin-bottom: 20px;
-  }
-}
-
-/* Media query per dispositivi con risoluzione 912x1368 */
-@media only screen and (max-width: 912px) and (max-height: 1368px) {
-  /* Inserisci qui le tue regole CSS per adattare il layout a questa risoluzione */
-  .container {
-    grid-template-columns: 1fr;
-    padding: 20px;
-  }
-
-  .image-order,
-  .delivery-imagine {
-    text-align: center;
-  }
-
-  .image,
-  .delivery-image {
-    max-width: 100%;
-    margin: 20px 0;
-  }
-
-  .register-button {
-    margin-right: 0;
-  }
-
-  .delivery-imagine {
-    order: 1;
-  }
-
-  .delivery-container {
-    margin-bottom: 20px;
-  }
-}
-/* Media query per dispositivi con risoluzione 1280x800 */
-@media only screen and (max-width: 1280px) and (max-height: 800px) {
-  /* Inserisci qui le tue regole CSS per adattare il layout a questa risoluzione */
-  .container {
-    grid-template-columns: 1fr;
-    padding: 20px;
-  }
-
-  .image-order,
-  .delivery-imagine {
-    text-align: center;
-  }
-
-  .image,
-  .delivery-image {
-    max-width: 100%;
-    margin: 20px 0;
-  }
-
-  .register-button {
-    margin-right: 0;
-  }
-
-  .delivery-imagine {
-    order: 1;
-  }
-
-  .delivery-container {
-    margin-bottom: 20px;
-  }
-}
-

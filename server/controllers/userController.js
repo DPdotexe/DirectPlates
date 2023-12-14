@@ -8,7 +8,7 @@ const userController = {
   // Registrazione di un nuovo utente
   register: async (req, res) => {
     try {
-      const { email, password } = req.body;
+      const { username, email, password } = req.body;
 
       // Verifica se l'utente esiste già
       const existingUser = await User.findOne({ email });
@@ -17,7 +17,7 @@ const userController = {
       }
 
       // Crea una nuova istanza dell'utente
-      const newUser = new User({ email, password });
+      const newUser = new User({ username, email, password });
 
       // Hash della password prima di salvarla nel database
       const salt = await bcrypt.genSalt(10);
