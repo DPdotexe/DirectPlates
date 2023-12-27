@@ -1,11 +1,27 @@
 // store.js
 import { configureStore } from '@reduxjs/toolkit';
-import cartReducer from '../reducers/cartReducer'; // Correggi il percorso del tuo cartReducer
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import cartReducer from '../reducers/cartReducer';
+import authReducer from '../reducers/authReducer';
+
+const cartPersistConfig = {
+  key: 'cart',
+  storage,
+  whitelist: ['items', 'isCartOpen'], // Includi tutte le proprietà che desideri persistere
+};
+
+const persistedCartReducer = persistReducer(cartPersistConfig, cartReducer);
 
 const store = configureStore({
   reducer: {
-    cart: cartReducer, // Se hai altri reducer, aggiungili qui con una nuova chiave
+    cart: persistedCartReducer,
+    auth: authReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
+  devTools: process.env.NODE_ENV !== 'production',
 });
 
-export default store;
+const persistor = persistStore(store);
+
+export { store, persistor };

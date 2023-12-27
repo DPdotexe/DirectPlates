@@ -1,23 +1,23 @@
 // controllers/userController.js
-
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
 
 const userController = {
   // Registrazione di un nuovo utente
   register: async (req, res) => {
     try {
-      const { email, password } = req.body;
+      const { email, username, password } = req.body;
 
       // Verifica se l'utente esiste già
-      const existingUser = await User.findOne({ email });
+      const existingUser = await User.findOne({ $or: [{ email }, { username }] });
       if (existingUser) {
-        return res.status(400).json({ message: 'User already exists with this email' });
+        return res.status(400).json({ message: 'User already exists with this email or username' });
       }
 
       // Crea una nuova istanza dell'utente
-      const newUser = new User({ email, password });
+      const newUser = new User({ email, username, password });
 
       // Hash della password prima di salvarla nel database
       const salt = await bcrypt.genSalt(10);
@@ -51,7 +51,7 @@ const userController = {
       }
 
       // Genera il token JWT
-      const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '1h' });
+      const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
 
       res.status(200).json({ token, userId: user._id, expiresIn: 3600 }); // expiresIn in secondi
     } catch (error) {
