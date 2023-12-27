@@ -43,7 +43,6 @@
   margin-top: 12px;
   font-size: 0.9rem;
   color: black;
-  text-decoration: none; /* Rimuove la sottolineatura iniziale */
 }
 
 .login-link-text {

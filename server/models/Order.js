@@ -1,5 +1,3 @@
-// models/Order.js
-
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
@@ -27,9 +25,8 @@ const orderSchema = new mongoose.Schema({
     required: true,
   },
   // Altri campi dell'ordine come data di creazione, stato, ecc.
-
-  // Timestamps per registrazione della data di creazione e aggiornamento
-  timestamps: true,
+}, {
+  timestamps: true, // Utilizza direttamente l'oggetto timestamps
 });
 
 const Order = mongoose.model('Order', orderSchema);

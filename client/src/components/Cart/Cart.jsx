@@ -1,37 +1,50 @@
-import React from 'react';
+// Cart.jsx
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFromCart, updateCartItemQuantity } from '../../actions/cartActions';
+import { removeFromCart, updateCartItemQuantity, closeCart } from '../../actions/cartActions';
 import { FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import './Cart.css';
 
-const Cart = ({ onCloseCart }) => {
+const Cart = () => {
   const cartItems = useSelector((state) => state.cart.items);
+  const isCartOpen = useSelector((state) => state.cart.isCartOpen);
+  console.log('isCartOpen:', isCartOpen);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    console.log('Componente Cart renderizzato');
+    console.log('isCartOpen:', isCartOpen);
+    console.log('cartItems:', cartItems);
+  }, [isCartOpen, cartItems]);
+
   const handleRemoveFromCart = (index) => {
+    console.log('Rimozione dal carrello:', index);
     dispatch(removeFromCart(index));
   };
 
   const handleQuantityChange = (index, newQuantity) => {
+    console.log('Cambio quantità:', index, newQuantity);
     if (newQuantity >= 1) {
       dispatch(updateCartItemQuantity({ index, newQuantity }));
     }
   };
 
   const handleCloseCart = () => {
-    onCloseCart && onCloseCart();
+    console.log('Chiusura del carrello');
+    dispatch(closeCart());
   };
 
   const calculateTotal = () => {
-    return cartItems.reduce(
-      (total, item) => total + parseFloat(item.price.replace('$', '')) * item.quantity,
-      0
-    );
+    return cartItems.reduce((total, item) => {
+      const itemPrice = item.product?.price?.replace('$', '');
+      const parsedPrice = itemPrice ? parseFloat(itemPrice) : 0;
+      return total + parsedPrice * item.quantity;
+    }, 0);
   };
 
   return (
-    <div className="cart-overlay">
+    <div className={`cart-overlay ${isCartOpen ? 'open' : ''}`}>
       <div className="cart-header">
         <h3>Shopping Cart</h3>
         <button className="close-cart" onClick={handleCloseCart}>
@@ -47,8 +60,8 @@ const Cart = ({ onCloseCart }) => {
               <li key={index} className="cart-item">
                 <div className="item-info">
                   <div className="item-details">
-                    <span className="item-name">{item.name}</span>
-                    <span className="item-price">{item.price}</span>
+                    <span className="item-name">{item.product?.dish}</span>
+                    <span className="item-price">{item.product?.price}</span>
                     <div className="quantity-controls">
                       <button
                         className="quantity-btn"
@@ -65,8 +78,8 @@ const Cart = ({ onCloseCart }) => {
                       </button>
                     </div>
                   </div>
-                  {item.imageUrl && (
-                    <img src={item.imageUrl} alt={item.name} className="cart-item-image" />
+                  {item.product?.imageUrl && (
+                    <img src={item.product.imageUrl} alt={item.product.dish} className="cart-item-image" />
                   )}
                 </div>
                 <button className="remove-item" onClick={() => handleRemoveFromCart(index)}>

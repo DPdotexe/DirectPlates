@@ -1,37 +1,65 @@
-// reducers/cartReducer.js
-
-import { createReducer } from '@reduxjs/toolkit';
-import { addToCart, removeFromCart, updateCartItemQuantity } from '../actions/cartActions';
+import {
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  UPDATE_CART_ITEM_QUANTITY,
+  SET_CART_ITEMS,
+  CLOSE_CART,
+  OPEN_CART
+} from '../actions/cartActions';
 
 const initialState = {
   items: [],
+  isCartOpen: false,
 };
 
-const cartReducer = createReducer(initialState, (builder) => {
-  builder
-    .addCase(addToCart, (state, action) => {
+const cartReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case ADD_TO_CART:
       return {
         ...state,
-        items: [...state.items, { ...action.payload, quantity: 1 }],
+        items: [...state.items, action.payload.product],
       };
-    })
-    .addCase(removeFromCart, (state, action) => {
-      const newItems = state.items.filter((item, index) => index !== action.payload);
+
+    case REMOVE_FROM_CART:
       return {
         ...state,
-        items: newItems,
+        items: state.items.filter((item, index) => index !== action.payload.index),
       };
-    })
-    .addCase(updateCartItemQuantity, (state, action) => {
-      const { index, newQuantity } = action.payload;
-      const updatedItems = state.items.map((item, i) =>
-        i === index ? { ...item, quantity: newQuantity } : item
-      );
+
+    case UPDATE_CART_ITEM_QUANTITY:
       return {
         ...state,
-        items: updatedItems,
+        items: state.items.map((item, index) =>
+          index === action.payload.index
+            ? { ...item, quantity: action.payload.newQuantity }
+            : item
+        ),
       };
-    });
-});
+
+    case SET_CART_ITEMS:
+      return {
+        ...state,
+        items: action.payload.items,
+      };
+
+    case OPEN_CART:
+      console.log('Apertura del carrello');
+      return {
+        ...state,
+        isCartOpen: true,
+      };
+
+// Nel reducer cartReducer.js
+case CLOSE_CART:
+  console.log('Chiusura del carrello nel reducer');
+  return {
+    ...state,
+    isCartOpen: false,
+  };
+
+    default:
+      return state;
+  }
+};
 
 export default cartReducer;

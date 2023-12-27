@@ -2,14 +2,16 @@ import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App';
 import './index.css';
-import { createRoot } from 'react-dom/client';  // Updated import statement
+import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 const rootElement = document.getElementById('root');
 
 createRoot(rootElement).render(
-  <React.StrictMode>
-    <HelmetProvider>
+  <HelmetProvider>
+    <Provider store={store}>
       <App />
-    </HelmetProvider>
-  </React.StrictMode>,
+    </Provider>
+  </HelmetProvider>,
 );

@@ -1,21 +1,27 @@
-// Navbar.jsx
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { IoCartOutline } from 'react-icons/io5';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useAuth } from './../../AuthContext';
+import { openCart } from '../../actions/cartActions';
 import './Navbar.css';
 
 const Navbar = ({ onCartClick }) => {
   const cartCount = useSelector((state) => state.cart.items.length);
-  const [isCartOverlayVisible, setCartOverlayVisible] = useState(false);
+  const { user, logout } = useAuth();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log('Stato di autenticazione cambiato:', user);
+  }, [user]);
 
   const handleCartClick = () => {
-    setCartOverlayVisible(true);
-    onCartClick && onCartClick();
-  };
+    console.log('Icona del carrello cliccata');
 
-  const closeCartOverlay = () => {
-    setCartOverlayVisible(false);
+    console.log('Dispatching openCart...');
+    dispatch(openCart());
+
+    onCartClick && onCartClick();
   };
 
   return (
@@ -31,14 +37,23 @@ const Navbar = ({ onCartClick }) => {
         <Link to="/about" className="nav-button">
           About
         </Link>
-        <Link to="/login" className="nav-button">
-          Login
-        </Link>
+        {user ? (
+          <>
+            <span className="nav-username">Hello, {user.username}</span>
+            <span className="nav-button logout-button" onClick={logout}>
+              Logout
+            </span>
+          </>
+        ) : (
+          <Link to="/login" className="nav-button">
+            Login
+          </Link>
+        )}
       </div>
 
       <div className="cart">
         <div className="cart-button" onClick={handleCartClick}>
-          <IoCartOutline size={20} />
+          <IoCartOutline size={30} />
           {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
         </div>
       </div>
