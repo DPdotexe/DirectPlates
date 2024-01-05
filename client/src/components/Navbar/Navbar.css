@@ -27,7 +27,6 @@
 .nav-link,
 .login-link,
 .signup-link,
-.logout-button,
 .nav-username {
   color: white;
   text-decoration: none;
@@ -38,10 +37,9 @@
 
 .nav-link:hover,
 .login-link:hover,
-.signup-link:hover,
-.logout-button:hover {
+.signup-link:hover {
   text-decoration: none; /* Rimuovi la sottolineatura durante l'effetto hover */
-  color: black /* Cambia il colore allo hover */
+  color: black; /* Cambia il colore allo hover */
 }
 
 .nav-username {
@@ -50,7 +48,18 @@
 }
 
 .logout-button {
-  margin-right: 10px; /* Aggiungi il margine desiderato tra "Logout" e il carrello */
+  /* Aggiungi solo questa regola per spostare "Logout" a destra */
+  margin-right: 10px;
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  transition: color 0.3s;
+  cursor: pointer; /* Aggiungi il cursore al passaggio sopra */
+}
+
+/* Aggiungi il colore nero all'hover per il pulsante di logout */
+.logout-button:hover {
+  color: black;
 }
 
 /* Aggiungi altri stili se necessario */
@@ -63,6 +72,12 @@
   align-items: center; /* Allinea l'icona e il conteggio verticalmente */
   position: relative; /* Per posizionare il conteggio all'interno del carrello */
   margin-right: 30px;
+  cursor: pointer; /* Imposta il cursore come "pointer" */
+}
+
+/* Aggiungi la regola di hover per l'icona del carrello */
+.cart-button:hover {
+  color: black; /* Cambia il colore quando passi sopra */
 }
 
 .cart-count {

@@ -1,29 +1,47 @@
-// controllers/orderController.js
-
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 
 const orderController = {
   createOrder: async (req, res) => {
     try {
-      const { customer, products } = req.body;
+      console.log('Received order creation request:', req.body);
+
+      // Verifica se l'utente è autenticato
+      const userId = req.user ? req.user.sub : null;
+
+      if (!userId) {
+        console.log('User not authenticated');
+        return res.status(401).json({ error: 'User not authenticated' });
+      }
+
+      const { products } = req.body;
+
+      // Verifica che la lista dei prodotti non sia vuota
+      if (!products || products.length === 0) {
+        console.log('Products list is required');
+        return res.status(400).json({ error: 'Products list is required' });
+      }
 
       // Calcola il totale dell'ordine in base ai prodotti e alle loro quantità
       const totalAmount = await calculateTotalAmount(products);
 
-      // Crea un nuovo ordine
+      // Crea un nuovo ordine con l'userId
       const newOrder = new Order({
-        customer,
+        customer: userId,
         products,
         totalAmount,
       });
 
+      console.log('Order details:', newOrder);
+
       // Salva l'ordine nel database
       await newOrder.save();
 
+      console.log('Order saved in the database');
+
       res.status(201).json({ message: 'Order created successfully', order: newOrder });
     } catch (error) {
-      console.error(error);
+      console.error('Error creating order:', error);
       res.status(500).json({ error: 'Error creating order' });
     }
   },
@@ -35,7 +53,7 @@ const orderController = {
 
       res.status(200).json(orders);
     } catch (error) {
-      console.error(error);
+      console.error('Error fetching orders:', error);
       res.status(500).json({ error: 'Error fetching orders' });
     }
   },
@@ -47,7 +65,7 @@ const orderController = {
 
       res.status(200).json(order);
     } catch (error) {
-      console.error(error);
+      console.error('Error fetching order by ID:', error);
       res.status(500).json({ error: 'Error fetching order by ID' });
     }
   },
@@ -59,6 +77,7 @@ const orderController = {
 
       // Verifica che lo status sia una stringa non vuota
       if (typeof newStatus !== 'string' || newStatus.trim() === '') {
+        console.log('Invalid status provided');
         return res.status(400).json({ error: 'Invalid status provided' });
       }
 
@@ -70,12 +89,15 @@ const orderController = {
       );
 
       if (!updatedOrder) {
+        console.log('Order not found');
         return res.status(404).json({ error: 'Order not found' });
       }
 
+      console.log('Order status updated successfully:', updatedOrder);
+
       res.status(200).json({ message: 'Order status updated successfully', order: updatedOrder });
     } catch (error) {
-      console.error(error);
+      console.error('Error updating order status:', error);
       res.status(500).json({ error: 'Error updating order status' });
     }
   },
@@ -88,17 +110,18 @@ const orderController = {
       const deletedOrder = await Order.findByIdAndRemove(orderId);
 
       if (!deletedOrder) {
+        console.log('Order not found');
         return res.status(404).json({ error: 'Order not found' });
       }
 
+      console.log('Order deleted successfully:', deletedOrder);
+
       res.status(200).json({ message: 'Order deleted successfully', order: deletedOrder });
     } catch (error) {
-      console.error(error);
+      console.error('Error deleting order:', error);
       res.status(500).json({ error: 'Error deleting order' });
     }
   },
-
-  // Altre operazioni legate agli ordini possono essere aggiunte qui
 };
 
 // Funzione di supporto per calcolare il totale dell'ordine

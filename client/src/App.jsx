@@ -1,3 +1,4 @@
+// App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
@@ -6,15 +7,16 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { store, persistor } from './redux/store';
 import Home from './pages/Home/Home';
+import { AuthProvider } from './AuthContext';
 import Navbar from './components/Navbar/Navbar';
 import Login from './pages/Login/Login';
 import Menu from './pages/Menu/Menu';
 import About from './pages/About/About';
 import SignUp from './pages/SignUp/SignUp';
-import Cart from './components/Cart/Cart'; // Assicurati che Cart sia importato
+import Cart from './components/Cart/Cart';
 import Checkout from './pages/CheckOut/CheckOut';
 import Footer from './components/Footer/Footer';
-import { AuthProvider } from './AuthContext';
+import Profile from './pages/Profile/Profile'; 
 
 const App = () => {
   return (
@@ -29,7 +31,9 @@ const App = () => {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/menu" element={<Menu />} />
               <Route path="/about" element={<About />} />
+              <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
+              <Route path="/profile" element={<Profile />} />
             </Routes>
             <Footer />
             <ToastContainer
@@ -43,7 +47,6 @@ const App = () => {
               draggable
               pauseOnHover
             />
-            <Cart />
           </AuthProvider>
         </Router>
       </PersistGate>

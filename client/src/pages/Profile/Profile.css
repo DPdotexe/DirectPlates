@@ -1,0 +1,57 @@
+
+/* Profile.css */
+
+.profile-container {
+  max-width: 1200px; /* Aumenta la larghezza a tuo piacimento */
+  margin: 20px auto;
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.profile-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+form {
+  display: grid;
+  gap: 20px;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 1.2rem;
+}
+
+button {
+  background-color: #E34234;
+  color: #fff;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.4rem;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #cc2a1f;
+}
+

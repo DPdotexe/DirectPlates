@@ -14,6 +14,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  address: {
+    type: String,
+    default: '', 
+  },
+  phoneNumber: {
+    type: String,
+    default: '',
+  },
   cart: [
     {
       productId: {
@@ -24,7 +32,7 @@ const userSchema = new mongoose.Schema({
       quantity: {
         type: Number,
         required: true,
-        default: 1, 
+        default: 1,
       },
     },
   ],

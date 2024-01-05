@@ -3,7 +3,6 @@ import {
   REMOVE_FROM_CART,
   UPDATE_CART_ITEM_QUANTITY,
   SET_CART_ITEMS,
-  CLOSE_CART,
   OPEN_CART
 } from '../actions/cartActions';
 
@@ -43,19 +42,10 @@ const cartReducer = (state = initialState, action) => {
       };
 
     case OPEN_CART:
-      console.log('Apertura del carrello');
       return {
         ...state,
         isCartOpen: true,
       };
-
-// Nel reducer cartReducer.js
-case CLOSE_CART:
-  console.log('Chiusura del carrello nel reducer');
-  return {
-    ...state,
-    isCartOpen: false,
-  };
 
     default:
       return state;

@@ -1,41 +1,52 @@
-// AuthContext.jsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
-    // Al caricamento del componente, verifica se ci sono informazioni di autenticazione nel localStorage
     const storedUser = localStorage.getItem('user');
+    const storedToken = localStorage.getItem('token');
 
-    if (storedUser) {
+    if (storedUser && storedToken) {
       setUser(JSON.parse(storedUser));
+      setToken(storedToken);
     }
-  }, []); // L'array delle dipendenze vuoto assicura che il useEffect venga eseguito solo una volta
+  }, []);
 
-  const login = (userData) => {
+  const login = (userData, authToken) => {
     setUser(userData);
+    setToken(authToken);
 
-    // Salva le informazioni di autenticazione nel localStorage al momento del login
+    // Salvataggio nel localStorage
     localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('token', authToken);
   };
 
   const logout = () => {
     setUser(null);
+    setToken(null);
 
-    // Rimuovi le informazioni di autenticazione dal localStorage al momento del logout
+    // Rimozione dal localStorage
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, token }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
 export const useAuth = () => {
-  return useContext(AuthContext);
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+
+  return context;
 };

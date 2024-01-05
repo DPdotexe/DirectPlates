@@ -1,28 +1,51 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { IoCartOutline } from 'react-icons/io5';
 import { useSelector, useDispatch } from 'react-redux';
 import { useAuth } from './../../AuthContext';
 import { openCart } from '../../actions/cartActions';
 import './Navbar.css';
 
-const Navbar = ({ onCartClick }) => {
+const Navbar = () => {
   const cartCount = useSelector((state) => state.cart.items.length);
   const { user, logout } = useAuth();
+  const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [greeting, setGreeting] = useState('Welcome!');
+  const [justRegistered, setJustRegistered] = useState(false);
 
   useEffect(() => {
-    console.log('Stato di autenticazione cambiato:', user);
-  }, [user]);
+    if (user) {
+      if (justRegistered) {
+        setGreeting('Welcome!');
+      } else {
+        setGreeting(`Hello, ${profile && profile.username ? profile.username : user.username}`);
+      }
+    } else {
+      setGreeting('Welcome!');
+    }
+  }, [user, profile, justRegistered]);
 
   const handleCartClick = () => {
-    console.log('Icona del carrello cliccata');
-
-    console.log('Dispatching openCart...');
     dispatch(openCart());
-
-    onCartClick && onCartClick();
+    navigate('/cart');
   };
+
+  const handleLogin = () => {
+    setJustRegistered(false);
+  };
+
+  useEffect(() => {
+    // Controlla se profile è definito e l'utente è appena stato registrato
+    if (profile && justRegistered) {
+      setGreeting(`Hello, ${profile.username}`);
+    }
+  }, [profile, justRegistered]);
+
+  const isLoginPage = location.pathname === '/login';
 
   return (
     <nav className="navbar">
@@ -39,10 +62,20 @@ const Navbar = ({ onCartClick }) => {
         </Link>
         {user ? (
           <>
-            <span className="nav-username">Hello, {user.username}</span>
-            <span className="nav-button logout-button" onClick={logout}>
-              Logout
-            </span>
+            {isLoginPage ? (
+              <Link to="/login" className="nav-button">
+                Login
+              </Link>
+            ) : (
+              <>
+                <Link to="/profile" className="nav-username" onClick={handleLogin}>
+                  {greeting}
+                </Link>
+                <span className="nav-button logout-button" onClick={logout}>
+                  Logout
+                </span>
+              </>
+            )}
           </>
         ) : (
           <Link to="/login" className="nav-button">

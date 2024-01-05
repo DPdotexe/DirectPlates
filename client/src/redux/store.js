@@ -8,7 +8,7 @@ import authReducer from '../reducers/authReducer';
 const cartPersistConfig = {
   key: 'cart',
   storage,
-  whitelist: ['items', 'isCartOpen'], // Includi tutte le proprietà che desideri persistere
+  whitelist: ['items', 'isCartOpen'], 
 };
 
 const persistedCartReducer = persistReducer(cartPersistConfig, cartReducer);

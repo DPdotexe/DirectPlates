@@ -3,44 +3,33 @@ export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const UPDATE_CART_ITEM_QUANTITY = 'UPDATE_CART_ITEM_QUANTITY';
 export const SET_CART_ITEMS = 'SET_CART_ITEMS';
-export const CLOSE_CART = 'CLOSE_CART';
-export const OPEN_CART = 'OPEN_CART'; // Nuova azione per aprire il carrello
+export const OPEN_CART = 'OPEN_CART';
 
-// Azione per aggiungere un prodotto al carrello
+// Action to add a product to the cart
 export const addToCart = (product) => ({
   type: ADD_TO_CART,
   payload: { product },
 });
 
-// Azione per rimuovere un prodotto dal carrello
+// Action to remove a product from the cart
 export const removeFromCart = (index) => ({
   type: REMOVE_FROM_CART,
   payload: { index },
 });
 
-// Azione per aggiornare la quantità di un prodotto nel carrello
+// Action to update the quantity of a product in the cart
 export const updateCartItemQuantity = ({ index, newQuantity }) => ({
   type: UPDATE_CART_ITEM_QUANTITY,
   payload: { index, newQuantity },
 });
 
-// Azione per impostare il carrello (usata per la persistenza)
+// Action to set the cart items (used for persistence)
 export const setCartItems = (items) => ({
   type: SET_CART_ITEMS,
   payload: { items },
 });
 
-// cartActions.js
-export const closeCart = () => {
-  console.log('closeCart azione chiamata');
-  return {
-    type: CLOSE_CART,
-  };
-};
-
-// cartActions.js
-export const openCart = () => {
-  return {
-    type: OPEN_CART,
-  };
-};
+// Action to open the cart
+export const openCart = () => ({
+  type: OPEN_CART,
+});
