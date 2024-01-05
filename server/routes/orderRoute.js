@@ -1,21 +1,12 @@
-// routes/orderRoutes.js
+// orderRoute.js
 const express = require('express');
 const router = express.Router();
+const jwtMiddleware = require('../middlewares/jwtMiddleware'); // Assicurati di avere questa importazione corretta
 const orderController = require('../controllers/orderController');
 
-// Ottieni tutti gli ordini
-router.get('/orders', orderController.getAllOrders);
+// Ottieni tutti gli ordini (richiede autenticazione)
+router.get('/orders', jwtMiddleware, orderController.getAllOrders);
 
-// Ottieni un ordine per ID
-router.get('/orders/:id', orderController.getOrderById);
-
-// Crea un nuovo ordine
-router.post('/orders', orderController.createOrder);
-
-// Aggiorna lo stato di un ordine per ID
-router.put('/orders/:id/status', orderController.updateOrderStatus);
-
-// Elimina un ordine per ID
-router.delete('/orders/:id', orderController.deleteOrder);
+// ... Altre route con middleware JWT
 
 module.exports = router;

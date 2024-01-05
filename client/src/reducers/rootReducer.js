@@ -1,29 +1,24 @@
-// rootReducer.js
 import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import cartReducer from './cartReducer';
-import { authSlice } from './authReducer'; // Importa il tuo slice di autenticazione
+import authSlice from './authSlice'; // Assicurati di importare il tuo slice di autenticazione correttamente
+import profileSlice from './profileSlice'; // Assicurati di importare il tuo slice del profilo correttamente
 
-// Configura la persistenza per il tuo riduttore del carrello
-const cartPersistConfig = {
-  key: 'cart',
+// Configura la persistenza per l'intero store
+const rootPersistConfig = {
+  key: 'root',
   storage,
-  whitelist: ['items'], // Array di campi nel tuo stato del carrello da persistere
+  whitelist: ['cart', 'auth', 'profile'], // Includi tutti gli slices che desideri persistere
 };
 
-// Configura la persistenza per il tuo slice di autenticazione
-const authPersistConfig = {
-  key: 'auth',
-  storage,
-  whitelist: ['isAuthenticated', 'user'], // Array di campi nel tuo stato di autenticazione da persistere
-};
-
-// Combina tutti i riduttori
+// Combina tutti i riduttori utilizzando combineReducers di Redux Toolkit
 const rootReducer = combineReducers({
-  cart: persistReducer(cartPersistConfig, cartReducer),
-  auth: persistReducer(authPersistConfig, authSlice.reducer),
+  cart: cartReducer,
+  auth: authSlice.reducer,
+  profile: profileSlice.reducer,
   // Aggiungi altri riduttori qui
 });
 
-export default rootReducer;
+// Configura la persistenza per l'intero store
+export default persistReducer(rootPersistConfig, rootReducer);

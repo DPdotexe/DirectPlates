@@ -1,12 +1,10 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-
 
 const authController = {
   register: async (req, res) => {
     try {
-
       const { email, username, password } = req.body;
 
       // Check if the user already exists
@@ -49,8 +47,20 @@ const authController = {
         return res.status(401).json({ error: 'Invalid email or password' });
       }
 
-      // Generate JWT token
-      const token = jwt.sign({ userId: user._id }, process.env.SECRET_KEY, { expiresIn: '1h' });
+      // Generate JWT token with additional information
+      const token = jwt.sign(
+        {
+          userId: user._id,
+          email: user.email,
+          username: user.username,
+          address: user.address,         // Aggiungi il campo address
+          phoneNumber: user.phoneNumber // Aggiungi il campo phoneNumber
+        },
+        process.env.SECRET_KEY,
+        { expiresIn: '8h' }
+      );
+
+      console.log('Generated Token:', token); // Aggiunto log
 
       res.json({ token, username: user.username, userId: user._id, expiresIn: 3600 });
     } catch (error) {
