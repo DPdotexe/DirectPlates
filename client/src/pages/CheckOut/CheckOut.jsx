@@ -1,30 +1,26 @@
+// CheckOut.jsx
+
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
-import Cookies from 'js-cookie'; // Importa la libreria js-cookie
 import { useAuth } from './../../AuthContext';
+import { clearCart } from '../../actions/cartActions';
 import './CheckOut.css';
 
-const Checkout = () => {
+const CheckOut = () => {
   const cartItems = useSelector((state) => state.cart.items);
-  const { user, token, setToken } = useAuth(); // Aggiungi setToken dal tuo AuthContext
+  const { user } = useAuth();
+  const userProfile = JSON.parse(localStorage.getItem('userProfile'));
   const [orderData, setOrderData] = useState({
-    shippingAddress: '',
+    shippingAddress: userProfile?.address || '',
+    newShippingAddress: '',
     paymentMethod: '',
   });
   const [orderStatus, setOrderStatus] = useState({ success: false, error: null });
-
-  useEffect(() => {
-    // Ottieni il token dai cookies all'inizio del rendering del componente
-    const tokenFromCookie = Cookies.get('DPCookie');
-    
-    // Se il token è presente nei cookies, imposta il token nel tuo contesto di autenticazione
-    if (tokenFromCookie && !token) {
-      setToken(tokenFromCookie);
-    }
-  }, [token, setToken]);
+  const dispatch = useDispatch(); 
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,46 +29,88 @@ const Checkout = () => {
 
   const handlePlaceOrder = async () => {
     try {
-      if (!orderData.shippingAddress || !orderData.paymentMethod) {
-        throw new Error('Please fill in all required fields.');
+      if (!orderData.paymentMethod) {
+        throw new Error('Please select a payment method.');
       }
 
-      const userId = user ? user.userId : null;
+      const storedUserData = localStorage.getItem('user');
+      const storedUser = storedUserData ? JSON.parse(storedUserData) : null;
 
-      if (!userId) {
+      if (!storedUser || !storedUser.token) {
         throw new Error('User not authenticated.');
       }
 
-      const requestData = {
-        customer: userId,
-        products: cartItems.map((item) => ({ product: item.productId, quantity: item.quantity })),
-      };
+      const selectedAddress = orderData.newShippingAddress || orderData.shippingAddress;
 
-      if (!token) {
-        console.error('Token is undefined. Cannot make the request.');
-        // Gestire l'errore o tornare indietro
-      } else {
-        console.log('Token included in headers:', token);
-
-        const response = await axios.post('http://localhost:3000/orders', requestData, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        // Se l'ordine è stato piazzato con successo, imposta il token nei cookies
-        if (response.data.success) {
-          Cookies.set('DPCookie', token, { expires: 1 / 3 }); // Imposta la scadenza dei cookies come 8 ore
-        }
+      if (!selectedAddress) {
+        throw new Error('Please fill in the shipping address.');
       }
 
-      console.log('Order placed successfully:', response.data);
-      setOrderStatus({ success: true, error: null });
+      const data = {
+        customer: storedUser.userId,
+        products: cartItems.map((item) => ({
+          productId: item.product.id,
+          quantity: item.quantity,
+          price: parseFloat(item.product.price.replace('$', '')),
+        })),
+        shippingAddress: selectedAddress,
+        paymentMethod: orderData.paymentMethod,
+      };
+
+      console.log('Sending order request with data:', data);
+
+      const response = await axios.post('http://localhost:3000/orders', data, {
+        headers: {
+          Authorization: `Bearer ${storedUser.token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Received order response:', response.data);
+
+      // Verifica se la risposta contiene un campo 'message'
+      if (response.data.message === 'Order created successfully') {
+        console.log('Order placed successfully!');
+
+        setOrderStatus({ success: true, error: null });
+        setOrderData({ shippingAddress: '', newShippingAddress: '', paymentMethod: '' });
+
+        console.log('Before dispatching clearCart');
+        dispatch(clearCart());
+
+        // Reindirizza l'utente dopo un breve ritardo
+        setTimeout(() => {
+          navigate('/');
+        }, 3000);
+      } else {
+        console.log('Order placement failed:', response.data.message);
+
+        // Aggiungi il codice per gestire l'errore se necessario
+        setOrderStatus({ success: false, error: response.data.message });
+      }
     } catch (error) {
-      console.error('Error placing order:', error);
+      console.error('Error placing order:', error.message);
+
+      if (error.response) {
+        console.log('Response data from server:', error.response.data);
+      }
+
       setOrderStatus({ success: false, error: error.message });
     }
   };
+
+  useEffect(() => {
+    if (orderStatus.success) {
+      console.log('Order success! Redirecting after 3 seconds...');
+
+      const redirectTimeout = setTimeout(() => {
+        navigate('/');
+      }, 3000);
+
+      // Pulisci il timeout quando il componente viene smontato
+      return () => clearTimeout(redirectTimeout);
+    }
+  }, [orderStatus.success, navigate]);
 
   return (
     <div className="checkout-container">
@@ -82,17 +120,45 @@ const Checkout = () => {
 
       <h2>Checkout</h2>
 
-      {cartItems.length === 0 ? (
+      {!orderStatus.success && cartItems.length === 0 && (
         <p>Your cart is empty. Add items to proceed to checkout.</p>
-      ) : (
+      )}
+
+      {orderStatus.success && (
+        <div className="order-success-message">
+          <p className="success-text">
+            <span role="img" aria-label="Check Mark">
+              ✔️
+            </span>{' '}
+            Order placed successfully! Thank you for your purchase.
+          </p>
+        </div>
+      )}
+
+      {cartItems.length > 0 && (
         <div>
           <div className="shipping-section">
             <h3>Shipping Address</h3>
+            {userProfile && userProfile.address && (
+              <>
+                <label>
+                  <input
+                    type="radio"
+                    name="shippingAddress"
+                    value={userProfile.address}
+                    checked={orderData.shippingAddress === userProfile.address}
+                    onChange={handleInputChange}
+                  />
+                  {userProfile.address}
+                </label>
+                <br />
+              </>
+            )}
             <input
               type="text"
-              name="shippingAddress"
+              name="newShippingAddress"
               placeholder="Enter your shipping address"
-              value={orderData.shippingAddress}
+              value={orderData.newShippingAddress}
               onChange={handleInputChange}
             />
           </div>
@@ -122,26 +188,16 @@ const Checkout = () => {
           </div>
 
           <button onClick={handlePlaceOrder}>Place Order</button>
-
-          {orderStatus.success && (
-            <div className="order-success-message">
-              <p>Order placed successfully! Thank you for your purchase.</p>
-            </div>
-          )}
-
-          {orderStatus.error && (
-            <div className="order-error-message">
-              <p>Error placing order: {orderStatus.error}</p>
-            </div>
-          )}
         </div>
       )}
 
-      <div className="back-to-cart">
-        <Link to="/">Back to Home</Link>
-      </div>
+      {!orderStatus.success && (
+        <div className="back-to-cart">
+          <Link to="/">Back to Home</Link>
+        </div>
+      )}
     </div>
   );
 };
 
-export default Checkout;
+export default CheckOut;

@@ -1,9 +1,12 @@
+// cartReducer.js
+
 import {
   ADD_TO_CART,
   REMOVE_FROM_CART,
   UPDATE_CART_ITEM_QUANTITY,
   SET_CART_ITEMS,
-  OPEN_CART
+  OPEN_CART,
+  CLEAR_CART, 
 } from '../actions/cartActions';
 
 const initialState = {
@@ -14,6 +17,7 @@ const initialState = {
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
+      console.log('Added to cart:', action.payload.product);
       return {
         ...state,
         items: [...state.items, action.payload.product],
@@ -45,6 +49,12 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         isCartOpen: true,
+      };
+
+    case CLEAR_CART:
+      return {
+        ...state,
+        items: [], 
       };
 
     default:

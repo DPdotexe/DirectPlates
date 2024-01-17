@@ -1,3 +1,4 @@
+// Navbar.jsx
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { IoCartOutline } from 'react-icons/io5';
@@ -19,23 +20,23 @@ const Navbar = () => {
 
   useEffect(() => {
     if (user) {
-      if (justRegistered) {
-        setGreeting('Welcome!');
-      } else {
-        setGreeting(`Hello, ${profile && profile.username ? profile.username : user.username}`);
-      }
+      setGreeting(`Hello, ${profile && profile.username ? profile.username : user.username}`);
     } else {
       setGreeting('Welcome!');
     }
-  }, [user, profile, justRegistered]);
+  }, [user, profile]);
 
   const handleCartClick = () => {
     dispatch(openCart());
     navigate('/cart');
   };
 
-  const handleLogin = () => {
+  const handleLogout = () => {
+    // Resetta lo stato "justRegistered" prima del logout
     setJustRegistered(false);
+    logout();
+    // Dopo il logout, naviga verso la home o la pagina desiderata
+    navigate('/');
   };
 
   useEffect(() => {
@@ -68,10 +69,10 @@ const Navbar = () => {
               </Link>
             ) : (
               <>
-                <Link to="/profile" className="nav-username" onClick={handleLogin}>
+                <Link to="/profile" className="nav-username">
                   {greeting}
                 </Link>
-                <span className="nav-button logout-button" onClick={logout}>
+                <span className="nav-button logout-button" onClick={handleLogout}>
                   Logout
                 </span>
               </>

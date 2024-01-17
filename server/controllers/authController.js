@@ -53,8 +53,7 @@ const authController = {
           userId: user._id,
           email: user.email,
           username: user.username,
-          address: user.address,         // Aggiungi il campo address
-          phoneNumber: user.phoneNumber // Aggiungi il campo phoneNumber
+          
         },
         process.env.SECRET_KEY,
         { expiresIn: '8h' }

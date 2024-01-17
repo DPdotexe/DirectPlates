@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { Helmet } from 'react-helmet-async';
-import { useAuth } from './../../AuthContext'; // Importa il contesto di autenticazione
+import { useAuth } from './../../AuthContext';
 import './Login.css';
 
 const Login = () => {
@@ -10,33 +10,34 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { login } = useAuth(); // Usa la funzione di login dal contesto di autenticazione
+  const { login } = useAuth();
 
-// Dopo aver ricevuto il token dalla risposta del server nel tuo componente di gestione dell'autenticazione
+  const handleLogin = async () => {
+    try {
+      const response = await Axios.post(
+        'http://localhost:3000/auth/login',
+        { email, password },
+        { withCredentials: true } // Aggiunto per gestire i cookies
+      );
 
-const handleLogin = async () => {
-  try {
-    const response = await Axios.post('http://localhost:3000/auth/login', { email, password });
+      const { username, userId, token } = response.data;
 
-    // Assicurati che la risposta contenga il token, l'ID utente e l'username
-    const { username, userId, token } = response.data;
+      // Esegui il login e passa l'oggetto utente al contesto di autenticazione
+      login({ username, userId, token });
 
-    // Esegui il login e passa l'oggetto utente al contesto di autenticazione
-    login({ username, userId, token });
+      // Salva il token nei cookies (opzionale, se vuoi gestire i cookies manualmente)
+      // document.cookie = `DPCookie=${token}; path=/;`;
 
-    // Salva il token nel LocalStorage
-    localStorage.setItem('token', token);
+      // Aggiungi un log per verificare la presenza del token nella console
+      console.log('Token salvato nei cookies:', token);
 
-    // Aggiungi un log per verificare la presenza del token nella console
-    console.log('Token salvato:', token);
-
-    // Redirect l'utente a una pagina protetta o alla home
-    navigate('/');
-  } catch (error) {
-    console.error('Error during login:', error);
-    setError('Invalid credentials. Please try again.');
-  }
-};
+      // Redirect l'utente a una pagina protetta o alla home
+      navigate('/');
+    } catch (error) {
+      console.error('Error during login:', error);
+      setError('Invalid credentials. Please try again.');
+    }
+  };
 
   const handleKeyDown = (e) => {
     // Se viene premuto il tasto "Enter", esegui il login

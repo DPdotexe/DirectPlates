@@ -1,61 +1,64 @@
-// cartController.js
 const Cart = require('../models/Cart');
 
 const cartController = {
   addToCart: async (req, res) => {
     try {
-      console.log('Richiesta ricevuta su /cart/add');
-      console.log('Dati ricevuti:', req.body);
+      // Log the incoming request details
+      console.log('Request received at /cart/add');
+      console.log('Data received:', req.body);
 
       const { userId, product, quantity } = req.body;
 
-      // Assicurati che l'oggetto product e la sua proprietà _id siano definiti
-      if (!product || !product._id) {
-        console.log('Prodotto non valido:', product);
-        return res.status(400).json({ success: false, message: 'Il prodotto non è valido' });
+      // Ensure that the 'product' object and its 'id' property are defined
+      if (!product || !product.id) {
+        console.log('Invalid product:', product);
+        return res.status(400).json({ success: false, message: 'The product is not valid' });
       }
 
-      // Verifica se l'utente esiste (potrebbe essere necessario aggiungere la tua logica specifica)
+      // Check if the user exists (you may need to add your specific logic)
       if (!userId) {
-        console.log('UserId non valido:', userId);
-        return res.status(400).json({ success: false, message: 'UserId non valido' });
+        console.log('Invalid userId:', userId);
+        return res.status(400).json({ success: false, message: 'Invalid userId' });
       }
 
-      // Trova il carrello dell'utente
+      // Find the user's cart
       let cart = await Cart.findOne({ userId });
 
-      // Se il carrello non esiste, creane uno nuovo
+      // If the cart does not exist, create a new one
       if (!cart) {
         cart = new Cart({ userId, products: [] });
       }
 
-      // Cerca il prodotto nel carrello
+      // Search for the product in the cart
       const existingProductIndex = cart.products.findIndex(
-        (p) => p.productId.toString() === product._id.toString()
+        (p) => p.productId === product.id
       );
 
-      // Aggiorna la quantità se il prodotto è già nel carrello
+      // Update the quantity if the product is already in the cart
       if (existingProductIndex !== -1) {
         cart.products[existingProductIndex].quantity += quantity || 1;
       } else {
-        // Aggiungi un nuovo prodotto al carrello
-        cart.products.push({ productId: product._id, quantity: quantity || 1 });
+        // Add a new product to the cart
+        cart.products.push({ productId: product.id, quantity: quantity || 1 });
       }
 
-      // Salva il carrello aggiornato nel database
+      // Save the updated cart to the database
       const updatedCart = await cart.save();
 
-      console.log('Cart aggiornato:', updatedCart); // Aggiunto questo log
-
-      // Rispondi con i dettagli del carrello aggiornato
+      // Respond with details of the updated cart
       return res.status(200).json({
         success: true,
-        message: 'Prodotto aggiunto al carrello con successo!',
-        cart: updatedCart,
+        message: 'Product successfully added to the cart!',
+        cartId: updatedCart._id,
+        product: {
+          id: product.id,
+          quantity: quantity || 1,
+        },
       });
     } catch (error) {
-      console.error('Errore durante l\'aggiunta al carrello:', error);
-      return res.status(500).json({ success: false, message: 'Errore interno del server' });
+      // Handle errors during the cart addition process
+      console.error('Error while adding to the cart:', error);
+      return res.status(500).json({ success: false, message: 'Internal server error' });
     }
   },
 };

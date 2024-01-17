@@ -1,19 +1,18 @@
-// SignUp.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { Helmet } from 'react-helmet-async';
-import { useAuth } from './../../AuthContext';
+import { useAuth } from './../../AuthContext'; // Assicurati di impostare il percorso corretto
 import './SignUp.css';
 
 const SignUp = () => {
-  const { login } = useAuth();
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { login } = useAuth(); // Utilizza il contesto di autenticazione
 
   const handleSignup = async () => {
     try {
@@ -26,9 +25,12 @@ const SignUp = () => {
           },
         }
       );
-  
+
       // Esegui il login solo se la registrazione è riuscita
       if (response.status === 201) {
+        // Esegui il login con il nuovo utente
+        login({ username, userId: response.data.userId, token: response.data.token });
+
         // Reindirizza alla pagina di login
         navigate('/login');
       } else {
@@ -36,7 +38,7 @@ const SignUp = () => {
       }
     } catch (error) {
       console.error('Errore durante la registrazione:', error);
-  
+
       if (
         error.response &&
         error.response.status === 400 &&
