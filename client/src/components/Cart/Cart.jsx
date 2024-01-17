@@ -1,16 +1,17 @@
-// Cart.jsx
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, updateCartItemQuantity } from '../../actions/cartActions';
 import { FaTimes } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Cart.css';
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('Cart Items:', cartItems);
   }, [cartItems]);
 
   const handleRemoveFromCart = (index) => {
@@ -24,11 +25,25 @@ const Cart = () => {
   };
 
   const calculateTotal = () => {
+    console.log('Cart Items:', cartItems);
     return cartItems.reduce((total, item) => {
       const itemPrice = item.product?.price?.replace('$', '');
       const parsedPrice = itemPrice ? parseFloat(itemPrice) : 0;
+      console.log(`Product Price: ${item.product?.price}, Quantity: ${item.quantity}`);
       return total + parsedPrice * item.quantity;
     }, 0);
+  };
+
+  const handleCheckout = () => {
+    const storedUserData = localStorage.getItem('user');
+    const storedUser = storedUserData ? JSON.parse(storedUserData) : null;
+
+    if (storedUser && storedUser.token) {
+      navigate('/checkout');
+    } else {
+      // Se l'utente non è autenticato, reindirizzalo alla pagina di registrazione
+      navigate('/signup');
+    }
   };
 
   return (
@@ -45,7 +60,7 @@ const Cart = () => {
         <div>
           <ul className="cart-items">
             {cartItems.map((item, index) => (
-              <li key={index} className="cart-item">
+              <li key={item.product.id} className="cart-item">
                 <div className="item-info">
                   <div className="item-details">
                     <span className="item-name">{item.product?.dish}</span>
@@ -78,9 +93,9 @@ const Cart = () => {
           </ul>
           <div className="cart-total">
             <span>Total: ${calculateTotal().toFixed(2)}</span>
-            <Link to="/checkout">
-              <button className="checkout-button">Check Out</button>
-            </Link>
+            <button className="checkout-button" onClick={handleCheckout}>
+              Check Out
+            </button>
           </div>
         </div>
       )}

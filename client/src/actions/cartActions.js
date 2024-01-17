@@ -1,9 +1,11 @@
 // cartActions.js
+
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const UPDATE_CART_ITEM_QUANTITY = 'UPDATE_CART_ITEM_QUANTITY';
 export const SET_CART_ITEMS = 'SET_CART_ITEMS';
 export const OPEN_CART = 'OPEN_CART';
+export const CLEAR_CART = 'CLEAR_CART'; 
 
 // Action to add a product to the cart
 export const addToCart = (product) => ({
@@ -33,3 +35,10 @@ export const setCartItems = (items) => ({
 export const openCart = () => ({
   type: OPEN_CART,
 });
+
+export const clearCart = () => {
+  console.log('Clearing Cart');  // Aggiungi questo log
+  return {
+    type: CLEAR_CART,
+  };
+};

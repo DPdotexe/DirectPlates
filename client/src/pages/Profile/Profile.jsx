@@ -1,13 +1,10 @@
-// Profile.jsx
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useAuth } from '../../AuthContext';
 import axios from 'axios';
 import { FaEdit } from 'react-icons/fa';
 import './Profile.css';
 
 const Profile = () => {
-  const auth = useAuth();
   const [formData, setFormData] = useState({
     username: '',
     address: '',
@@ -18,23 +15,30 @@ const Profile = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (auth.user) {
+    // Recupera l'utente memorizzato da localStorage
+    const storedUserProfile = localStorage.getItem('userProfile');
+    const userProfile = storedUserProfile ? JSON.parse(storedUserProfile) : null;
+
+    if (userProfile) {
       setFormData({
-        username: auth.user.username || '',
-        address: auth.user.address || '',
-        phoneNumber: auth.user.phoneNumber || '',
+        username: userProfile.username || '',
+        address: userProfile.address || '',
+        phoneNumber: userProfile.phoneNumber || '',
       });
-    }
-  }, [auth.user]);
+    } else {
+      // Se non ci sono informazioni salvate, recupera l'utente da localStorage
+      const storedUserData = localStorage.getItem('user');
+      const storedUser = storedUserData ? JSON.parse(storedUserData) : null;
 
-  useEffect(() => {
-    console.log('Token from AuthContext:', auth.token);
-
-    // Assicurati che il token sia disponibile prima di effettuare la richiesta
-    if (auth.token && isEditMode) {
-      handleSave();
+      if (storedUser) {
+        setFormData({
+          username: storedUser.username || '',
+          address: storedUser.address || '',
+          phoneNumber: storedUser.phoneNumber || '',
+        });
+      }
     }
-  }, [auth.token, isEditMode]);
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -45,55 +49,66 @@ const Profile = () => {
     try {
       setError(null);
       setIsLoading(true);
-  
-      // Controlla se il token è disponibile
-      if (!auth.token) {
+
+      const storedUserData = localStorage.getItem('user');
+      const storedUser = storedUserData ? JSON.parse(storedUserData) : null;
+
+      if (!storedUser || !storedUser.token) {
         console.error('Token is missing. User not authenticated.');
         return;
       }
-  
-      console.log('Token included in the request header:', auth.token);
-  
+
       const response = await axios.put(
-        'http://localhost:3000/users/profile',
+        'http://localhost:3000/users/updateProfile',
         {
+          userId: storedUser.userId,
+          username: formData.username,
           address: formData.address,
           phoneNumber: formData.phoneNumber,
         },
         {
           headers: {
-            Authorization: `Bearer ${auth.token}`,
+            Authorization: `Bearer ${storedUser.token}`,
           },
+          withCredentials: true,
         }
       );
-  
+
       console.log('Response from the server:', response);
-  
+
+      // Aggiorna lo stato dopo una risposta positiva
       setFormData({
         ...formData,
         address: response.data.address,
         phoneNumber: response.data.phoneNumber,
       });
+
+      // Aggiorna il localStorage con i nuovi dati del profilo
+      localStorage.setItem('userProfile', JSON.stringify({
+        ...formData,
+        address: response.data.address,
+        phoneNumber: response.data.phoneNumber,
+      }));
+
       setIsEditMode(false);
     } catch (error) {
       console.error('Error during save:', error);
-  
+
       if (error.response) {
         console.error('Response data:', error.response.data);
-  
+
         if (error.response.status === 401) {
           console.error('Unauthorized access. Redirect to login page.');
-          auth.logout();
           // Aggiungi qui il codice per reindirizzare l'utente alla pagina di login
         }
-  
+
         setError('An error occurred during save.');
       }
     } finally {
       setIsLoading(false);
     }
   };
-  
+
   return (
     <div className="profile-container">
       <Helmet>
@@ -104,7 +119,13 @@ const Profile = () => {
 
       <form>
         <label htmlFor="username">Username:</label>
-        <input type="text" id="username" name="username" value={formData.username} readOnly />
+        <input
+          type="text"
+          id="username"
+          name="username"
+          value={formData.username}
+          onChange={handleInputChange}
+        />
 
         <div className="address-container">
           <label htmlFor="address">Address:</label>

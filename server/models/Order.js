@@ -1,32 +1,21 @@
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-  // Campi relativi all'ordine
   customer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // Riferimento al modello User
-    required: true,
+    userId: { type: String, required: true },
   },
   products: [
     {
-      product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product', // Riferimento al modello Product, se necessario
-        required: true,
-      },
-      quantity: {
-        type: Number,
-        required: true,
-      },
+      id: { type: String, required: true }, 
+      quantity: { type: Number, required: true },
+      price: { type: Number, required: true },
     },
   ],
-  totalAmount: {
-    type: Number,
-    required: true,
-  },
-  // Altri campi dell'ordine come data di creazione, stato, ecc.
+  totalAmount: { type: Number, default: 0 },
+  shippingAddress: { type: String, required: true },
+  paymentMethod: { type: String, required: true },
 }, {
-  timestamps: true, // Utilizza direttamente l'oggetto timestamps
+  timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
 });
 
 const Order = mongoose.model('Order', orderSchema);
