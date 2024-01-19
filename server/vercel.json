@@ -1,10 +1,12 @@
 {
-    "functions": {
-      "api": { "handler": "server/src/api/*.js" }
-    },
+    "builds": [
+      {
+        "src": "server/**/*.js",
+        "use": "@vercel/node"
+      }
+    ],
     "routes": [
-      { "src": "/api/(.*)", "dest": "api/$1" },
-      { "handle": "filesystem" }
+      { "src": "/api/(.*)", "dest": "server/$1" }
     ]
   }
   
