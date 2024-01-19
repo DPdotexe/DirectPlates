@@ -1,27 +1,31 @@
-// authSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
+// Creating a slice for authentication-related state management
 export const authSlice = createSlice({
   name: 'auth',
   initialState: {
     isAuthenticated: false,
     user: null,
-    token: null, // Aggiunto il campo token
+    token: null, 
   },
   reducers: {
+    // Reducer function for handling login action
     login: (state, action) => {
       state.isAuthenticated = true;
       state.user = action.payload.user; 
-      state.token = action.payload.token; // Aggiunto il salvataggio del token durante il login
+      state.token = action.payload.token; 
     },
+    // Reducer function for handling logout action
     logout: (state) => {
       state.isAuthenticated = false;
       state.user = null;
-      state.token = null; // Pulisci anche il token durante il logout
+      state.token = null;
     },
   },
 });
 
+// Exporting actions for login and logout
 export const { login, logout } = authSlice.actions;
 
+// Exporting the reducer function
 export default authSlice.reducer;

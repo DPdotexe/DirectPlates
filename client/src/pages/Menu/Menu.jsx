@@ -10,17 +10,22 @@
   import './Menu.css';
 
   const Menu = () => {
+    // Redux dispatch hook
     const dispatch = useDispatch();
-    const { user } = useAuth(); 
+    // Authentication context
+    const { user } = useAuth();
   
+    // State to store the user ID
     const [userId, setUserId] = useState(null);
   
+    // Effect to update the user ID when the user changes
     useEffect(() => {
       if (user) {
         setUserId(user.userId);
       }
     }, [user]);
-
+  
+    // Menu items categorized by type
     const menuItems = {
       firstCourses: [
         {
@@ -174,74 +179,78 @@
       ],
     };
     
-    const handleAddToCart = async (item) => {
-      if (!item.id) {
-        console.error('L\'oggetto item non ha una proprietà "id" definita:', item);
-        return; // Puoi gestire questo caso come desideri
-      }
-    
-      const cartItem = {
-        product: {
-          id: item.id,
-          dish: item.dish,
-          price: item.price,
-          imageUrl: item.imageUrl,
-        },
-        quantity: 1,
-      };
-    
-      if (user) {
-        // Aggiorna lo stato Redux per gli utenti autenticati
-        dispatch(
-          addToCart({
-            product: cartItem.product,
-            quantity: cartItem.quantity,
-            userId: user.userId, // Utilizza l'ID utente per gli utenti autenticati
-          })
-        );
-    
-        try {
-          // Effettua la chiamata al backend solo per gli utenti autenticati
-          const response = await axios.post('http://localhost:3000/cart/add', {
-            userId: user.userId,
-            product: cartItem.product,
-            quantity: cartItem.quantity,
-          });
-          console.log('Risposta dal server:', response.data);
-    
-          toast.success(`${item.dish} added to the cart!`, { position: 'top-right', autoClose: 3000 });
-        } catch (error) {
-          console.error('Errore durante l\'aggiunta al carrello:', error);
-    
-          if (error.response) {
-            console.error('Dettagli dell\'errore:', error.response.data);
-          }
-        }
-      } else {
-        // Utente non autenticato: aggiungi al carrello locale
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        const existingProductIndex = cart.findIndex((p) => p.product.id === cartItem.product.id);
-    
-        if (existingProductIndex !== -1) {
-          cart[existingProductIndex].quantity += cartItem.quantity;
-        } else {
-          cart.push(cartItem);
-        }
-    
-        localStorage.setItem('cart', JSON.stringify(cart));
-    
-        // Aggiorna lo stato Redux per gli utenti non autenticati
-        dispatch(
-          addToCart({
-            product: cartItem.product,
-            quantity: cartItem.quantity,
-            userId: null, // Utente non autenticato
-          })
-        );
-      }
+ 
+      // Function to handle adding items to the cart
+  const handleAddToCart = async (item) => {
+    // Check if the item has a valid ID
+    if (!item.id) {
+      console.error('The item object does not have a "id" property defined:', item);
+      return;
+    }
+
+    // Create a cart item object
+    const cartItem = {
+      product: {
+        id: item.id,
+        dish: item.dish,
+        price: item.price,
+        imageUrl: item.imageUrl,
+      },
+      quantity: 1,
     };
-    
-    
+
+    // If the user is authenticated, update Redux state and make a backend call
+    if (user) {
+      dispatch(
+        addToCart({
+          product: cartItem.product,
+          quantity: cartItem.quantity,
+          userId: user.userId,
+        })
+      );
+
+      try {
+        // Make a POST request to the backend to add the item to the cart
+        const response = await axios.post('http://localhost:3000/cart/add', {
+          userId: user.userId,
+          product: cartItem.product,
+          quantity: cartItem.quantity,
+        });
+
+        // Display a success toast notification
+        toast.success(`${item.dish} added to the cart!`, { position: 'top-right', autoClose: 3000 });
+      } catch (error) {
+        // Handle errors during the backend call
+        console.error('Error adding to the cart:', error);
+
+        if (error.response) {
+          console.error('Error details:', error.response.data);
+        }
+      }
+    } else {
+      // If the user is not authenticated, update local storage for the cart
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existingProductIndex = cart.findIndex((p) => p.product.id === cartItem.product.id);
+
+      if (existingProductIndex !== -1) {
+        cart[existingProductIndex].quantity += cartItem.quantity;
+      } else {
+        cart.push(cartItem);
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+
+      // Update Redux state for non-authenticated users
+      dispatch(
+        addToCart({
+          product: cartItem.product,
+          quantity: cartItem.quantity,
+          userId: null,
+        })
+      );
+    }
+  };
+
     return (
       <div className="menu-container">
         <Helmet>

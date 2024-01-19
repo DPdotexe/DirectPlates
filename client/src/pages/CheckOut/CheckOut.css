@@ -1,5 +1,5 @@
-/* CheckOut.css */
 
+/* Container styling for the checkout section */
 .checkout-container {
   width: 80%;
   max-width: 800px;
@@ -12,15 +12,18 @@
   text-align: center;
 }
 
+/* Heading style for the checkout section */
 .checkout-container h2 {
   font-size: 2rem;
   margin-bottom: 20px;
 }
 
+/* Paragraph style for the checkout section */
 .checkout-container p {
   margin-bottom: 20px;
 }
 
+/* Styling for shipping and payment sections */
 .shipping-section,
 .payment-section {
   width: 100%;
@@ -28,12 +31,14 @@
   margin: 0 auto 20px;
 }
 
+/* Heading style for shipping and payment sections */
 .shipping-section h3,
 .payment-section h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
 }
 
+/* Input field styling for text inputs and card elements */
 input[type="text"],
 .card-element {
   width: 100%;
@@ -43,11 +48,13 @@ input[type="text"],
   border-radius: 5px;
 }
 
+/* Label styling for form labels */
 label {
   display: block;
   margin-bottom: 10px;
 }
 
+/* Button styling for the checkout button */
 button {
   background-color: #e34234;
   color: white;
@@ -58,10 +65,12 @@ button {
   transition: background-color 0.3s;
 }
 
+/* Button hover effect */
 button:hover {
   background-color: #cc2a1f;
 }
 
+/* Styling for order success and error messages */
 .order-success-message,
 .order-error-message {
   margin-top: 20px;
@@ -69,29 +78,35 @@ button:hover {
   border-radius: 5px;
 }
 
+/* Styling for success message */
 .order-success-message {
   background-color: #4caf50;
   color: white;
 }
 
+/* Styling for error message */
 .order-error-message {
   background-color: #e34234;
   color: white;
 }
 
+/* Styling for back-to-cart link */
 .back-to-cart a {
   color: #e34234;
   text-decoration: underline;
 }
 
+/* Back-to-cart link hover effect */
 .back-to-cart a:hover {
   color: #cc2a1f;
 }
 
+/* Styling for checkout success section */
 .checkout-success {
   display: none;
 }
 
+/* Styling for success text */
 .success-text {
   display: flex;
   align-items: center;
@@ -99,6 +114,7 @@ button:hover {
   font-weight: bold;
 }
 
+/* Styling for success text span */
 .success-text span {
   margin-right: 10px;
 }

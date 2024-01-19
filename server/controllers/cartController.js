@@ -3,21 +3,15 @@ const Cart = require('../models/Cart');
 const cartController = {
   addToCart: async (req, res) => {
     try {
-      // Log the incoming request details
-      console.log('Request received at /cart/add');
-      console.log('Data received:', req.body);
-
       const { userId, product, quantity } = req.body;
 
       // Ensure that the 'product' object and its 'id' property are defined
       if (!product || !product.id) {
-        console.log('Invalid product:', product);
         return res.status(400).json({ success: false, message: 'The product is not valid' });
       }
 
       // Check if the user exists (you may need to add your specific logic)
       if (!userId) {
-        console.log('Invalid userId:', userId);
         return res.status(400).json({ success: false, message: 'Invalid userId' });
       }
 

@@ -1,5 +1,5 @@
-/* components/Cart.css */
 
+/* Styles for the main cart container */
 .cart-container {
   position: relative;
   background-color: white;
@@ -7,12 +7,13 @@
   border: 1px solid #ddd;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  margin: 20px auto; /* Centra il container orizzontalmente */
-  max-width: 1500px; /* Aumentato da 1200px a 1500px */
-  overflow-y: auto; /* Aggiunto overflow-y per attivare la barra di scorrimento verticale */
-  max-height: 600px; /* Aumentato da 500px a 600px */
+  margin: 20px auto; 
+  max-width: 1500px; 
+  overflow-y: auto;
+  max-height: 600px; 
 }
 
+/* Styles for the header of the cart */
 .cart-header {
   display: flex;
   justify-content: space-between;
@@ -20,12 +21,14 @@
   margin-bottom: 20px;
 }
 
+/* Styles for the title of the cart */
 .cart-title {
   font-size: 2rem;
   font-weight: bold;
-  color: #e34234; /* Colore corretto per la variabile di colore */
+  color: #e34234; 
 }
 
+/* Styles for the list of cart items */
 .cart-items {
   list-style: none;
   padding: 0;
@@ -36,6 +39,7 @@
   grid-gap: 10px;
 }
 
+/* Styles for each individual cart item */
 .cart-item {
   display: flex;
   flex-direction: column;
@@ -45,12 +49,14 @@
   padding-bottom: 8px;
 }
 
+/* Styles for the information of each cart item */
 .item-info {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Styles for the name of the item */
 .item-name {
   font-weight: bold;
   max-width: 150px;
@@ -60,11 +66,13 @@
   text-align: center;
 }
 
+/* Styles for the price of the item */
 .item-price {
   margin-top: 10px;
   margin-left: 10px;
 }
 
+/* Styles for the image of the cart item */
 .cart-item-image {
   width: 100px;
   height: 100px;
@@ -74,6 +82,7 @@
   margin-bottom: 20px;
 }
 
+/* Styles for the quantity controls */
 .quantity-controls {
   display: flex;
   justify-content: center;
@@ -81,8 +90,9 @@
   margin-top: 10px;
 }
 
+/* Styles for the quantity buttons */
 .quantity-btn {
-  background-color: #e34234; /* Colore corretto per la variabile di colore */
+  background-color: #e34234; 
   color: white;
   border: none;
   padding: 5px 8px;
@@ -96,9 +106,10 @@
   background-color: #cc2a1f;
 }
 
+/* Styles for the remove item and close cart buttons */
 .remove-item,
 .close-cart {
-  background-color: #e34234; /* Colore corretto per la variabile di colore */
+  background-color: #e34234; 
   color: white;
   border: none;
   padding: 8px 12px;
@@ -116,6 +127,7 @@
   background-color: #cc2a1f;
 }
 
+/* Styles for the cart total section */
 .cart-total {
   margin-top: 15px;
   display: flex;
@@ -123,8 +135,9 @@
   align-items: center;
 }
 
+/* Styles for the checkout button */
 .checkout-button {
-  background-color: #e34234; /* Colore corretto per la variabile di colore */
+  background-color: #e34234; 
   color: white;
   border: none;
   padding: 10px 15px;
@@ -137,6 +150,7 @@
   background-color: #45a049;
 }
 
+/* Styles for the continue shopping button */
 .continue-shopping-button {
   background-color: #e34234;
   color: white;
@@ -152,7 +166,7 @@
   background-color: #cc2a1f;
 }
 
-/* Aggiunta media query per schermi più piccoli */
+/* Media query for smaller screens */
 @media screen and (max-width: 768px) {
   .cart-items {
     grid-template-columns: 1fr;

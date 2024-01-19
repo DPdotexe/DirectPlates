@@ -1,5 +1,3 @@
-// controllers/productController.js
-
 const Product = require('../models/Product');
 
 const productController = {
@@ -32,7 +30,7 @@ const productController = {
   createProduct: async (req, res) => {
     const { dish, description, price, imageUrl } = req.body;
 
-    // Validazioni
+    // Validations
     if (!dish || !description || !price) {
       return res.status(400).json({ error: 'Missing required fields' });
     }

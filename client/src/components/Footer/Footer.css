@@ -1,3 +1,4 @@
+/* Styles for the main footer container */
 .footer {
   background-color: #E34234;
   color: white;
@@ -8,9 +9,10 @@
   left: 0;
   width: 100%;
   box-sizing: border-box;
-  z-index: 1000; /* Aggiunto uno z-index per assicurarsi che il footer sia sopra il contenuto */
+  z-index: 1000;
 }
 
+/* Styles for the content within the footer */
 .footer-content {
   display: flex;
   justify-content: space-between;
@@ -19,6 +21,37 @@
   box-sizing: border-box;
 }
 
-.footer p {
-  margin: 8px 0;
+/* Styles for the copyright information */
+.copyright {
+  display: flex;
+  align-items: center;
+}
+
+/* Styles for the copyright text */
+.copyright p {
+  margin: 8px 5px;
+}
+
+/* Styles for the brand information */
+.brand {
+  font-weight: bold;
+}
+
+/* Styles for the social icons section */
+.social-icons {
+  display: flex;
+  align-items: center;
+}
+
+/* Styles for each social icon link */
+.social-icons a {
+  color: white;
+  margin-left: 10px;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+/* Hover styles for social icons */
+.social-icons a:hover {
+  color: black; 
 }

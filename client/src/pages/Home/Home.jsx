@@ -1,19 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { useAuth } from './../../AuthContext'; // Assicurati di importare correttamente il tuo contesto di autenticazione
+import { useAuth } from './../../AuthContext';
 import './Home.css';
 
 const Home = () => {
-  const { user } = useAuth(); // Assicurati di avere un hook useAuth() o simile per ottenere lo stato di autenticazione
+  const { user } = useAuth();
 
-  // Funzione per determinare il percorso corretto in base allo stato di autenticazione
   const getOrderNowPath = () => {
     if (user) {
-      // Utente autenticato, reindirizza a /menu
-      return '/menu'; // Sostituisci con il percorso desiderato per gli utenti autenticati
+      // Authenticated user, redirect to /menu
+      return '/menu';
     } else {
-      // Utente non autenticato, reindirizza a /signup
+      // Non-authenticated user, redirect to /signup
       return '/signup';
     }
   };
@@ -21,12 +20,12 @@ const Home = () => {
   return (
     <div className="container">
       <Helmet>
-        <title>Home - Your App Name</title>
-        {/* Altri tag head possono essere impostati qui */}
+        <title>Home - DirectPlates</title>
+        {/* Other head tags can be set here */}
       </Helmet>
 
       <div className="home-container">
-        <h1 className="home-title">Welcome to Our Food Delivery App</h1>
+        <h1 className="home-title">Welcome to DirectPlates!</h1>
         <p className="home-description">
           Explore a variety of delicious dishes delivered to your doorstep.
         </p>
@@ -38,12 +37,12 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Container con l'immagine principale in alto a destra */}
+      {/* Container with the main image on the top right */}
       <div className="image-order">
         <img src="/images/foodorder.jpg" alt="Background" className="image" />
       </div>
 
-      {/* Container con l'immagine del delivery in basso a sinistra */}
+      {/* Container with the delivery image on the bottom left */}
       <div className="delivery-imagine">
         <img src="/images/foodelivery.jpg" alt="Delivery Background" className="delivery-image" />
       </div>
@@ -64,4 +63,3 @@ const Home = () => {
 };
 
 export default Home;
-

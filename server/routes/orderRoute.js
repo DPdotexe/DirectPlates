@@ -4,7 +4,7 @@ const router = express.Router();
 const jwtMiddleware = require('../middlewares/jwtMiddleware');
 const orderController = require('../controllers/orderController');
 
-// Gestione richiesta di preflight OPTIONS
+// Handle preflight OPTIONS request
 router.options('/', (req, res) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:5173'); 
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
@@ -12,7 +12,7 @@ router.options('/', (req, res) => {
   res.status(200).end();
 });
 
-// Crea un nuovo ordine (richiede autenticazione)
+// Create a new order (requires authentication)
 router.post('/', jwtMiddleware, orderController.createOrder);
 
 module.exports = router;

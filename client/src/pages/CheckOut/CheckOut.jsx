@@ -1,5 +1,3 @@
-// CheckOut.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -22,30 +20,38 @@ const CheckOut = () => {
   const dispatch = useDispatch(); 
   const navigate = useNavigate();
 
+  // Function to handle input changes in the form
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setOrderData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  // Function to handle placing an order
   const handlePlaceOrder = async () => {
     try {
+      // Check if a payment method is selected
       if (!orderData.paymentMethod) {
         throw new Error('Please select a payment method.');
       }
 
+      // Retrieve user data from local storage
       const storedUserData = localStorage.getItem('user');
       const storedUser = storedUserData ? JSON.parse(storedUserData) : null;
 
+      // Check if the user is authenticated
       if (!storedUser || !storedUser.token) {
         throw new Error('User not authenticated.');
       }
 
+      // Determine the selected shipping address
       const selectedAddress = orderData.newShippingAddress || orderData.shippingAddress;
 
+      // Check if a shipping address is provided
       if (!selectedAddress) {
         throw new Error('Please fill in the shipping address.');
       }
 
+      // Prepare data for the order request
       const data = {
         customer: storedUser.userId,
         products: cartItems.map((item) => ({
@@ -57,8 +63,7 @@ const CheckOut = () => {
         paymentMethod: orderData.paymentMethod,
       };
 
-      console.log('Sending order request with data:', data);
-
+      // Send the order request to the server
       const response = await axios.post('http://localhost:3000/orders', data, {
         headers: {
           Authorization: `Bearer ${storedUser.token}`,
@@ -66,52 +71,43 @@ const CheckOut = () => {
         },
       });
 
-      console.log('Received order response:', response.data);
-
-      // Verifica se la risposta contiene un campo 'message'
+      // Check if the response contains a 'message' field
       if (response.data.message === 'Order created successfully') {
-        console.log('Order placed successfully!');
-
+        // Set the order status and reset order data
         setOrderStatus({ success: true, error: null });
         setOrderData({ shippingAddress: '', newShippingAddress: '', paymentMethod: '' });
 
-        console.log('Before dispatching clearCart');
+        // Dispatch the action to clear the cart
         dispatch(clearCart());
 
-        // Reindirizza l'utente dopo un breve ritardo
+        // Redirect the user after a short delay
         setTimeout(() => {
           navigate('/');
         }, 3000);
       } else {
-        console.log('Order placement failed:', response.data.message);
-
-        // Aggiungi il codice per gestire l'errore se necessario
+        // Handle the error if necessary
         setOrderStatus({ success: false, error: response.data.message });
       }
     } catch (error) {
-      console.error('Error placing order:', error.message);
-
-      if (error.response) {
-        console.log('Response data from server:', error.response.data);
-      }
-
+      // Set the order status to indicate failure
       setOrderStatus({ success: false, error: error.message });
     }
   };
 
+  // Effect to redirect the user after a successful order placement
   useEffect(() => {
     if (orderStatus.success) {
-      console.log('Order success! Redirecting after 3 seconds...');
-
+      // Set a timeout to redirect the user after 3 seconds
       const redirectTimeout = setTimeout(() => {
         navigate('/');
       }, 3000);
 
-      // Pulisci il timeout quando il componente viene smontato
+      // Clear the timeout when the component is unmounted
       return () => clearTimeout(redirectTimeout);
     }
   }, [orderStatus.success, navigate]);
 
+  // JSX structure for the Checkout component
   return (
     <div className="checkout-container">
       <Helmet>
@@ -166,7 +162,7 @@ const CheckOut = () => {
           <div className="payment-section">
             <h3>Payment Method</h3>
             <label>
-              <input
+              <input 
                 type="radio"
                 name="paymentMethod"
                 value="creditCard"

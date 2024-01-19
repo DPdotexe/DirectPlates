@@ -1,7 +1,8 @@
+
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeFromCart, updateCartItemQuantity } from '../../actions/cartActions';
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaShoppingCart } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import './Cart.css';
 
@@ -11,7 +12,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('Cart Items:', cartItems);
+    // Removed log statement
   }, [cartItems]);
 
   const handleRemoveFromCart = (index) => {
@@ -25,11 +26,10 @@ const Cart = () => {
   };
 
   const calculateTotal = () => {
-    console.log('Cart Items:', cartItems);
     return cartItems.reduce((total, item) => {
       const itemPrice = item.product?.price?.replace('$', '');
       const parsedPrice = itemPrice ? parseFloat(itemPrice) : 0;
-      console.log(`Product Price: ${item.product?.price}, Quantity: ${item.quantity}`);
+      // Removed log statement
       return total + parsedPrice * item.quantity;
     }, 0);
   };
@@ -41,7 +41,6 @@ const Cart = () => {
     if (storedUser && storedUser.token) {
       navigate('/checkout');
     } else {
-      // Se l'utente non è autenticato, reindirizzalo alla pagina di registrazione
       navigate('/signup');
     }
   };
@@ -49,13 +48,15 @@ const Cart = () => {
   return (
     <div className="cart-container">
       <div className="cart-header">
-        <h3>Shopping Cart</h3>
+        <h3>
+          <FaShoppingCart /> Shopping Cart
+        </h3>
         <Link to="/">
           <FaTimes />
         </Link>
       </div>
       {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+        <p>Your cart is empty. Start adding items!</p>
       ) : (
         <div>
           <ul className="cart-items">

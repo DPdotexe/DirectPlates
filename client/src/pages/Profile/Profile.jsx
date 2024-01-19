@@ -5,32 +5,37 @@ import { FaEdit } from 'react-icons/fa';
 import './Profile.css';
 
 const Profile = () => {
+  // State to manage user profile data
   const [formData, setFormData] = useState({
     username: '',
     address: '',
     phoneNumber: '',
   });
+  
+  // State to manage edit mode, loading state, and errors
   const [isEditMode, setIsEditMode] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Recupera l'utente memorizzato da localStorage
+    // Retrieve user profile data from localStorage
     const storedUserProfile = localStorage.getItem('userProfile');
     const userProfile = storedUserProfile ? JSON.parse(storedUserProfile) : null;
 
     if (userProfile) {
+      // Set form data if user profile exists
       setFormData({
         username: userProfile.username || '',
         address: userProfile.address || '',
         phoneNumber: userProfile.phoneNumber || '',
       });
     } else {
-      // Se non ci sono informazioni salvate, recupera l'utente da localStorage
+      // If no saved information, retrieve user data from localStorage
       const storedUserData = localStorage.getItem('user');
       const storedUser = storedUserData ? JSON.parse(storedUserData) : null;
 
       if (storedUser) {
+        // Set form data with user data
         setFormData({
           username: storedUser.username || '',
           address: storedUser.address || '',
@@ -40,24 +45,29 @@ const Profile = () => {
     }
   }, []);
 
+  // Handle input changes in the form
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  // Handle save button click
   const handleSave = async () => {
     try {
       setError(null);
       setIsLoading(true);
 
+      // Retrieve user data from localStorage
       const storedUserData = localStorage.getItem('user');
       const storedUser = storedUserData ? JSON.parse(storedUserData) : null;
 
+      // Check for authentication
       if (!storedUser || !storedUser.token) {
         console.error('Token is missing. User not authenticated.');
         return;
       }
 
+      // Send a PUT request to update user profile on the server
       const response = await axios.put(
         'http://localhost:3000/users/updateProfile',
         {
@@ -74,16 +84,14 @@ const Profile = () => {
         }
       );
 
-      console.log('Response from the server:', response);
-
-      // Aggiorna lo stato dopo una risposta positiva
+      // Update state after a successful response
       setFormData({
         ...formData,
         address: response.data.address,
         phoneNumber: response.data.phoneNumber,
       });
 
-      // Aggiorna il localStorage con i nuovi dati del profilo
+      // Update localStorage with new profile data
       localStorage.setItem('userProfile', JSON.stringify({
         ...formData,
         address: response.data.address,
@@ -99,7 +107,7 @@ const Profile = () => {
 
         if (error.response.status === 401) {
           console.error('Unauthorized access. Redirect to login page.');
-          // Aggiungi qui il codice per reindirizzare l'utente alla pagina di login
+          // Add code here to redirect the user to the login page
         }
 
         setError('An error occurred during save.');
@@ -112,7 +120,7 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <Helmet>
-        <title>{`${formData.username}'s Profile - Your App Name`}</title>
+        <title>{`${formData.username}'s Profile - DirectPlates`}</title>
       </Helmet>
 
       <h1 className="profile-title">Profile</h1>

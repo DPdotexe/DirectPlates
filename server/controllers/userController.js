@@ -67,7 +67,7 @@ const userController = {
       const user = await User.findByIdAndUpdate(
         userId,
         { address, phoneNumber },
-        { new: true } 
+        { new: true }
       );
 
       if (!user) {
