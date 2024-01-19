@@ -1,5 +1,4 @@
-/* Navbar.css */
-
+/* Styles for the main navbar container */
 .navbar {
   position: fixed;
   top: 0;
@@ -8,87 +7,273 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #E34234; /* Colore amaranto */
+  background-color: #E34234; 
   color: white;
   padding: 20px;
-  z-index: 1000; /* Assicura che la Navbar sia sopra gli altri elementi */
+  z-index: 1000; 
 }
 
+/* Styles for the logo section */
 .logo {
-  font-size: 1.5rem; /* Dimensione del testo del logo */
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
 }
 
-.nav-buttons {
+/* Styles for the logo image */
+.logo-image {
+  width: 40px; 
+  height: auto;
+  margin-right: 10px; 
+}
+
+/* Styles for the burger menu icon */
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  margin-left: 10px; 
+}
+
+/* Styles for the lines in the burger menu */
+.burger-line {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+/* Styles for the center navigation section */
+.nav-center {
   display: flex;
   gap: 20px;
-  align-items: center; /* Allinea verticalmente il contenuto */
+  align-items: center; 
+  margin-left: auto; 
+  margin-right: 10px; 
 }
 
-.nav-link,
-.login-link,
-.signup-link,
+/* Styles for the navigation buttons */
+.nav-button {
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+  margin-right: 15px;
+  transition: color 0.3s;
+  cursor: pointer; 
+}
+
+/* Hover styles for navigation buttons */
+.nav-button:hover {
+  text-decoration: none; 
+  color: black; 
+}
+
+/* Styles for the right navigation section */
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+/* Styles for the username in navigation */
 .nav-username {
   color: white;
   text-decoration: none;
   padding: 10px;
   transition: color 0.3s;
-  cursor: pointer; /* Aggiungi il cursore al passaggio sopra */
+  cursor: pointer;
+  margin-right: 60px;
 }
 
-.nav-link:hover,
-.login-link:hover,
-.signup-link:hover {
-  text-decoration: none; /* Rimuovi la sottolineatura durante l'effetto hover */
-  color: black; /* Cambia il colore allo hover */
+/* Hover styles for the username */
+.nav-username:hover {
+  color: black;
 }
 
-.nav-username {
-  margin-left: auto; /* Sposta "Hello" a destra, vicino all'icona del carrello */
-  margin-right: 10px; /* Aggiungi il margine desiderato tra "Hello" e il carrello */
+/* Styles for the overlay when dropdown is open */
+.overlay {
+  position: fixed;
+  top: 80px; 
+  left: 0;
+  width: 100%;
+  height: calc(100% - 60px); 
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 2; 
 }
 
+/* Styles for the dropdown content */
+.dropdown-content {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 60px; /* Navbar height */
+  right: 60px;
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  z-index: 3; 
+}
+
+/* Styles for each item in the dropdown */
+.dropdown-item {
+  color: black;
+  padding: 12px 16px;
+  display: block;
+  text-decoration: none;
+}
+
+/* Hover styles for dropdown items */
+.dropdown-item:hover {
+  background-color: #ddd;
+}
+
+/* Styles for the logout button */
 .logout-button {
-  /* Aggiungi solo questa regola per spostare "Logout" a destra */
-  margin-right: 10px;
-  color: white;
-  text-decoration: none;
-  padding: 10px;
   transition: color 0.3s;
-  cursor: pointer; /* Aggiungi il cursore al passaggio sopra */
 }
 
-/* Aggiungi il colore nero all'hover per il pulsante di logout */
+/* Hover styles for the logout button */
 .logout-button:hover {
   color: black;
 }
 
-/* Aggiungi altri stili se necessario */
+/* Styles for the cart section */
+.cart {
+  margin-left: auto;
+}
 
+/* Styles for the cart button */
 .cart-button {
   color: white;
   text-decoration: none;
   padding: 10px;
   display: flex;
-  align-items: center; /* Allinea l'icona e il conteggio verticalmente */
-  position: relative; /* Per posizionare il conteggio all'interno del carrello */
+  align-items: center; 
+  position: relative; 
+  cursor: pointer; 
   margin-right: 30px;
-  cursor: pointer; /* Imposta il cursore come "pointer" */
 }
 
-/* Aggiungi la regola di hover per l'icona del carrello */
+/* Hover styles for the cart button */
 .cart-button:hover {
-  color: black; /* Cambia il colore quando passi sopra */
+  color: black;
 }
 
+/* Styles for the cart count */
 .cart-count {
-  background-color: red; /* Colore di sfondo del conteggio */
+  background-color: red; 
   color: white;
   border-radius: 50%;
   padding: 4px 8px;
   font-size: 12px;
-  position: absolute; /* Posiziona il conteggio in modo assoluto rispetto al carrello */
-  top: 0; /* Allinea il conteggio in alto */
-  right: 0; /* Allinea il conteggio a destra */
+  position: absolute;
+  top: 0;
+  right: 0; 
 }
 
-/* Navbar.css */
+/* Styles for the mobile menu in responsive version */
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  position: absolute;
+  top: 80px; 
+  right: -100%; 
+  background-color: #E34234; 
+  z-index: 3; 
+  transition: right 0.3s ease-in-out;
+}
+
+/* Styles for open mobile menu */
+.nav-links.open {
+  right: 0; /* Display menu in mobile version */
+}
+
+/* Styles for mobile menu links */
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  padding: 15px;
+  text-align: right;
+  transition: color 0.3s;
+}
+
+/* Hover styles for mobile menu links */
+.nav-links a:hover {
+  color: black;
+}
+
+/* Media query to apply styles only on smaller screens */
+@media screen and (max-width: 768px) {
+  .navbar {
+    flex-direction: row; 
+    align-items: center; 
+  }
+
+  .nav-center {
+    display: none;
+  }
+
+  .nav-right {
+    display: none;
+  }
+
+  .logo {
+    margin-right: auto; 
+  }
+
+  .burger-menu {
+    display: flex;
+    margin-left: 10px; 
+    margin-right: 40px;
+    z-index: 4;
+  }
+
+  .burger-line {
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    margin: 6px 0;
+    transition: 0.4s;
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    position: absolute;
+    top: 80px; 
+    right: 0;
+    background-color: #E34234;
+    z-index: 1; 
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%); 
+  }
+
+  .nav-links.open {
+    transform: translateX(0); 
+  }
+
+  .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 15px;
+    text-align: left;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover {
+    color: black;
+  }
+}
+
+/* Hide main menu on mobile devices when the burger menu is open */
+.navbar.mobile-menu-open .nav-center {
+  display: none;
+}
+
+/* Show mobile menu only on mobile devices */
+.navbar.mobile-menu-open .nav-links {
+  display: flex;
+}

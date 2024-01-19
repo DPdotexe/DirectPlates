@@ -36,8 +36,7 @@ export const openCart = () => ({
   type: OPEN_CART,
 });
 
-export const clearCart = () => {
-  console.log('Clearing Cart');  // Aggiungi questo log
+export const clearCart = () => { 
   return {
     type: CLEAR_CART,
   };

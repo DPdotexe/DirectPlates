@@ -17,21 +17,14 @@ const Login = () => {
       const response = await Axios.post(
         'http://localhost:3000/auth/login',
         { email, password },
-        { withCredentials: true } // Aggiunto per gestire i cookies
+        { withCredentials: true }
       );
 
       const { username, userId, token } = response.data;
 
-      // Esegui il login e passa l'oggetto utente al contesto di autenticazione
+      // Perform login and pass the user object to the authentication context
       login({ username, userId, token });
-
-      // Salva il token nei cookies (opzionale, se vuoi gestire i cookies manualmente)
-      // document.cookie = `DPCookie=${token}; path=/;`;
-
-      // Aggiungi un log per verificare la presenza del token nella console
-      console.log('Token salvato nei cookies:', token);
-
-      // Redirect l'utente a una pagina protetta o alla home
+      
       navigate('/');
     } catch (error) {
       console.error('Error during login:', error);
@@ -40,7 +33,7 @@ const Login = () => {
   };
 
   const handleKeyDown = (e) => {
-    // Se viene premuto il tasto "Enter", esegui il login
+    // If the "Enter" key is pressed, perform login
     if (e.key === 'Enter') {
       handleLogin();
     }
@@ -49,7 +42,7 @@ const Login = () => {
   return (
     <div className="login-container">
       <Helmet>
-        <title>Login - Your App Name</title>
+        <title>Login - DirectPlates</title>
       </Helmet>
 
       <h2 className="header">Login</h2>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { Helmet } from 'react-helmet-async';
-import { useAuth } from './../../AuthContext'; // Assicurati di impostare il percorso corretto
+import { useAuth } from './../../AuthContext';
 import './SignUp.css';
 
 const SignUp = () => {
@@ -12,9 +12,24 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const { login } = useAuth(); // Utilizza il contesto di autenticazione
+  const { login } = useAuth();
 
   const handleSignup = async () => {
+    setError(null);
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    // Simple email validation using a regular expression
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Invalid email address.');
+      return;
+    }
+
     try {
       const response = await Axios.post(
         'http://localhost:3000/auth/register',
@@ -26,29 +41,23 @@ const SignUp = () => {
         }
       );
 
-      // Esegui il login solo se la registrazione è riuscita
       if (response.status === 201) {
-        // Esegui il login con il nuovo utente
         login({ username, userId: response.data.userId, token: response.data.token });
-
-        // Reindirizza alla pagina di login
         navigate('/login');
       } else {
-        setError('Errore durante la registrazione. Riprova.');
+        setError('Error during registration. Please try again.');
       }
     } catch (error) {
-      console.error('Errore durante la registrazione:', error);
+      console.error('Error during registration:', error);
 
       if (
         error.response &&
         error.response.status === 400 &&
         error.response.data.error === 'User already registered'
       ) {
-        setError(
-          'Utente già registrato. Accedi o utilizza un altro indirizzo email.'
-        );
+        setError('User already registered. Please log in or use a different email address.');
       } else {
-        setError('Errore durante la registrazione. Riprova.');
+        setError('Error during registration. Please try again.');
       }
     }
   };
@@ -62,7 +71,7 @@ const SignUp = () => {
   return (
     <div className="signup-container">
       <Helmet>
-        <title>Registration - Your App Name</title>
+        <title>Registration - DirectPlates</title>
       </Helmet>
 
       <h2 className="header">Registration</h2>

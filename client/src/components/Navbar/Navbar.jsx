@@ -1,7 +1,6 @@
-// Navbar.jsx
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { IoCartOutline } from 'react-icons/io5';
+import { IoCartOutline, IoChevronDown } from 'react-icons/io5';
 import { useSelector, useDispatch } from 'react-redux';
 import { useAuth } from './../../AuthContext';
 import { openCart } from '../../actions/cartActions';
@@ -17,8 +16,11 @@ const Navbar = () => {
 
   const [greeting, setGreeting] = useState('Welcome!');
   const [justRegistered, setJustRegistered] = useState(false);
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
+    // Update greeting based on user and profile changes
     if (user) {
       setGreeting(`Hello, ${profile && profile.username ? profile.username : user.username}`);
     } else {
@@ -32,15 +34,14 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    // Resetta lo stato "justRegistered" prima del logout
     setJustRegistered(false);
     logout();
-    // Dopo il logout, naviga verso la home o la pagina desiderata
+    setDropdownVisible(false);
     navigate('/');
   };
 
   useEffect(() => {
-    // Controlla se profile è definito e l'utente è appena stato registrato
+    // Update greeting after user registration
     if (profile && justRegistered) {
       setGreeting(`Hello, ${profile.username}`);
     }
@@ -49,9 +50,24 @@ const Navbar = () => {
   const isLoginPage = location.pathname === '/login';
 
   return (
-    <nav className="navbar">
-      <div className="logo">Logo</div>
-      <div className="nav-buttons">
+    <nav className={`navbar${isMobileMenuOpen ? ' mobile-menu-open' : ''}`}>
+      <div className="logo">
+        <Link to="/">
+          <img
+            src="/images/directplates.png"
+            alt="DirectPlates Logo"
+            className="logo-image"
+          />
+        </Link>
+        <Link to="/">DirectPlates</Link>
+      </div>
+      <div className="burger-menu" onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
+        <div className="burger-line"></div>
+        <div className="burger-line"></div>
+        <div className="burger-line"></div>
+      </div>
+      <div className="nav-center">
+        {/* Navigation Links */}
         <Link to="/" className="nav-button">
           Home
         </Link>
@@ -61,20 +77,35 @@ const Navbar = () => {
         <Link to="/about" className="nav-button">
           About
         </Link>
+      </div>
+      <div className="nav-right">
         {user ? (
           <>
             {isLoginPage ? (
-              <Link to="/login" className="nav-button">
-                Login
-              </Link>
+              null
             ) : (
               <>
-                <Link to="/profile" className="nav-username">
-                  {greeting}
-                </Link>
-                <span className="nav-button logout-button" onClick={handleLogout}>
-                  Logout
-                </span>
+                {/* User Dropdown */}
+                <div className="nav-username" onClick={() => setDropdownVisible(!isDropdownVisible)}>
+                  {greeting} <IoChevronDown />
+                  {isDropdownVisible && (
+                    <div className="overlay" onClick={() => setDropdownVisible(false)}></div>
+                  )}
+                  {isDropdownVisible && (
+                    <div className="dropdown-content">
+                      <Link
+                        to="/profile"
+                        className="dropdown-item"
+                        onClick={() => setDropdownVisible(false)}
+                      >
+                        Profile
+                      </Link>
+                      <span className="dropdown-item" onClick={handleLogout}>
+                        Logout
+                      </span>
+                    </div>
+                  )}
+                </div>
               </>
             )}
           </>
@@ -83,13 +114,46 @@ const Navbar = () => {
             Login
           </Link>
         )}
-      </div>
-
-      <div className="cart">
-        <div className="cart-button" onClick={handleCartClick}>
-          <IoCartOutline size={30} />
-          {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+        {/* Shopping Cart */}
+        <div className="cart">
+          <div className="cart-button" onClick={handleCartClick}>
+            <IoCartOutline size={30} />
+            {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+          </div>
         </div>
+      </div>
+      {/* Mobile Menu Links */}
+      <div
+        className={`nav-links${isMobileMenuOpen ? ' open' : ''}`}
+        onClick={() => setMobileMenuOpen(false)}
+      >
+        <Link to="/" className="nav-button">
+          Home
+        </Link>
+        <Link to="/menu" className="nav-button">
+          Menu
+        </Link>
+        <Link to="/about" className="nav-button">
+          About
+        </Link>
+        {user && (
+          <>
+            <Link to="/profile" className="nav-button">
+              Profile
+            </Link>
+            <Link to="/cart" className="nav-button">
+            Cart
+            </Link>
+            <span className="nav-button" onClick={handleLogout}>
+              Logout
+            </span>
+          </>
+        )}
+        {!user && (
+          <Link to="/login" className="nav-button">
+            Login
+          </Link>
+        )}
       </div>
     </nav>
   );

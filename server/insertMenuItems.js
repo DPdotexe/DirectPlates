@@ -1,7 +1,6 @@
-// insertMenuItems.js
 
 const mongoose = require('mongoose');
-const Product = require('./models/Product'); // Assicurati che il percorso sia corretto
+const Product = require('./models/Product'); 
 
 const menuItems = {
   firstCourses: [
@@ -163,7 +162,7 @@ async function insertMenuItems() {
     for (const category in menuItems) {
       for (const menuItem of menuItems[category]) {
         const product = new Product({
-          id: menuItem.id, // Usa l'id fornito nel tuo array
+          id: menuItem.id,
           dish: menuItem.dish,
           description: menuItem.description,
           price: parseFloat(menuItem.price.replace('$', '')),

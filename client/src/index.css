@@ -1,19 +1,22 @@
+/* Global styling for the entire body */
 body {
-  margin: 0;
-  display: flex;
+  margin: 0; 
+  display: flex; 
   align-items: center;
   justify-content: center;
   min-width: 320px;
-  min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
+  min-height: 100vh; 
+  font-family: 'Poppins', sans-serif; 
 }
 
+/* Styling for hyperlinks */
 a {
-  font-weight: 500;
-  color: white;
-  text-decoration: none;
+  font-weight: 500; 
+  color: white; 
+  text-decoration: none; 
 }
 
+/* Hover effect for hyperlinks */
 a:hover {
-  color: black;
+  color: black; 
 }

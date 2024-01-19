@@ -1,5 +1,5 @@
-/* About.css */
 
+/* Styles for the main container of the About page */
 .about-container {
   max-width: 800px;
   margin: 0 auto;
@@ -7,21 +7,19 @@
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd; /* Optional: Add a subtle border to the container */
 }
 
+/* Styles for the title of the About page */
 .about-title {
   font-size: 2.5rem;
   color: #E34234;
   margin-bottom: 20px;
 }
 
+/* Styles for the description text of the About page */
 .about-description {
   font-size: 1.2rem;
   line-height: 1.6;
   color: #333;
-}
-
-/* Optional: Add a subtle border to the container */
-.about-container {
-  border: 1px solid #ddd;
 }

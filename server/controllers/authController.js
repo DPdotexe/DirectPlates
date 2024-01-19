@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const authController = {
+  // User registration endpoint
   register: async (req, res) => {
     try {
       const { email, username, password } = req.body;
@@ -22,6 +23,7 @@ const authController = {
       // Save to the database
       await newUser.save();
 
+      // Respond with success message
       res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
       console.error('Error during user registration:', error);
@@ -29,6 +31,7 @@ const authController = {
     }
   },
 
+  // User login endpoint
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -53,14 +56,12 @@ const authController = {
           userId: user._id,
           email: user.email,
           username: user.username,
-          
         },
         process.env.SECRET_KEY,
         { expiresIn: '8h' }
       );
 
-      console.log('Generated Token:', token); // Aggiunto log
-
+      // Respond with the generated token and user information
       res.json({ token, username: user.username, userId: user._id, expiresIn: 3600 });
     } catch (error) {
       console.error('Error during login:', error);
@@ -69,4 +70,5 @@ const authController = {
   },
 };
 
+// Export the authController object
 module.exports = authController;
