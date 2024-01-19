@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
@@ -63,6 +64,8 @@ const CheckOut = () => {
         paymentMethod: orderData.paymentMethod,
       };
 
+      console.log('Sending order request with data:', data);
+
       // Send the order request to the server
       const response = await axios.post('http://localhost:3000/orders', data, {
         headers: {
@@ -71,11 +74,17 @@ const CheckOut = () => {
         },
       });
 
+      console.log('Received order response:', response.data);
+
       // Check if the response contains a 'message' field
       if (response.data.message === 'Order created successfully') {
+        console.log('Order placed successfully!');
+
         // Set the order status and reset order data
         setOrderStatus({ success: true, error: null });
         setOrderData({ shippingAddress: '', newShippingAddress: '', paymentMethod: '' });
+
+        console.log('Before dispatching clearCart');
 
         // Dispatch the action to clear the cart
         dispatch(clearCart());
@@ -85,10 +94,19 @@ const CheckOut = () => {
           navigate('/');
         }, 3000);
       } else {
+        console.log('Order placement failed:', response.data.message);
+
         // Handle the error if necessary
         setOrderStatus({ success: false, error: response.data.message });
       }
     } catch (error) {
+      console.error('Error placing order:', error.message);
+
+      // Log additional information if available
+      if (error.response) {
+        console.log('Response data from server:', error.response.data);
+      }
+
       // Set the order status to indicate failure
       setOrderStatus({ success: false, error: error.message });
     }
@@ -97,6 +115,8 @@ const CheckOut = () => {
   // Effect to redirect the user after a successful order placement
   useEffect(() => {
     if (orderStatus.success) {
+      console.log('Order success! Redirecting after 3 seconds...');
+
       // Set a timeout to redirect the user after 3 seconds
       const redirectTimeout = setTimeout(() => {
         navigate('/');
@@ -159,7 +179,7 @@ const CheckOut = () => {
             />
           </div>
 
-          <div className="payment-section">
+         <div className="payment-section">
             <h3>Payment Method</h3>
             <label>
               <input 
