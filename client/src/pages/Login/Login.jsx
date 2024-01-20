@@ -15,7 +15,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await Axios.post(
-        'https://direct-places.onrender.com/auth/login',
+        'https://direct-plates-server.onrender.com/auth/login',
         { email, password },
         { withCredentials: true }
       );

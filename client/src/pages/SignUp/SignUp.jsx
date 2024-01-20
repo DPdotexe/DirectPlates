@@ -32,7 +32,7 @@ const SignUp = () => {
 
     try {
       const response = await Axios.post(
-        'https://direct-places.onrender.com/auth/register',
+        'https://direct-plates-server.onrender.com/auth/register',
         { email, username, password },
         {
           headers: {
