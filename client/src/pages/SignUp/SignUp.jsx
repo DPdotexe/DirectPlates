@@ -32,7 +32,7 @@ const SignUp = () => {
 
     try {
       const response = await Axios.post(
-        'http://localhost:3000/auth/register',
+        'https://direct-places.onrender.com/auth/register',
         { email, username, password },
         {
           headers: {

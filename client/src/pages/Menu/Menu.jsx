@@ -211,7 +211,7 @@
 
       try {
         // Make a POST request to the backend to add the item to the cart
-        const response = await axios.post('http://localhost:3000/cart/add', {
+        const response = await axios.post('https://direct-places.onrender.com/cart/add', {
           userId: user.userId,
           product: cartItem.product,
           quantity: cartItem.quantity,

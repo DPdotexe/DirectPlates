@@ -69,7 +69,7 @@ const Profile = () => {
 
       // Send a PUT request to update user profile on the server
       const response = await axios.put(
-        'http://localhost:3000/users/updateProfile',
+        'https://direct-places.onrender.com/users/updateProfile',
         {
           userId: storedUser.userId,
           username: formData.username,
