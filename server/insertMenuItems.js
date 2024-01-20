@@ -157,10 +157,13 @@ const menuItems = {
 
 async function insertMenuItems() {
   try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/mydb', {});
+    // Connect to the database
+    await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
+    // Iterate through menu items and categories
     for (const category in menuItems) {
       for (const menuItem of menuItems[category]) {
+        // Create a new Product instance
         const product = new Product({
           id: menuItem.id,
           dish: menuItem.dish,
@@ -169,6 +172,7 @@ async function insertMenuItems() {
           imageUrl: menuItem.imageUrl,
         });
 
+        // Save the product to the database
         await product.save();
       }
     }
@@ -177,8 +181,10 @@ async function insertMenuItems() {
   } catch (error) {
     console.error('Error inserting menu items:', error);
   } finally {
+    // Disconnect from the database even in case of an error
     mongoose.disconnect();
   }
 }
 
+// Call the function to insert menu items
 insertMenuItems();
