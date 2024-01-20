@@ -14,7 +14,7 @@ const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(cors({
-  origin: 'https://directplates.netlify.app/',
+  origin: 'https://directplates.netlify.app',
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));
