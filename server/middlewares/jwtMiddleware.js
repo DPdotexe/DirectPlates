@@ -25,7 +25,7 @@ function jwtMiddleware(req, res, next) {
 
     // Set the Access-Control-Allow-Credentials header to true
     res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Origin', 'https://direct-places.onrender.com');
+    res.header('Access-Control-Allow-Origin', 'https://directplates.netlify.app/');
 
     next();
   } catch (error) {

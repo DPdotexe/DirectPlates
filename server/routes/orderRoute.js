@@ -6,7 +6,7 @@ const orderController = require('../controllers/orderController');
 
 // Handle preflight OPTIONS request
 router.options('/', (req, res) => {
-  res.header('Access-Control-Allow-Origin', 'https://direct-places.onrender.com'); 
+  res.header('Access-Control-Allow-Origin', 'https://directplates.netlify.app/'); 
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   res.status(200).end();
