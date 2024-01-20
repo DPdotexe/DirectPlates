@@ -25,7 +25,7 @@ function jwtMiddleware(req, res, next) {
 
     // Set the Access-Control-Allow-Credentials header to true
     res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+    res.header('Access-Control-Allow-Origin', 'https://direct-places.onrender.com');
 
     next();
   } catch (error) {

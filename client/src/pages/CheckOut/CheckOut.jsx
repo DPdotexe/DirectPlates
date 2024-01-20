@@ -67,7 +67,7 @@ const CheckOut = () => {
       console.log('Sending order request with data:', data);
 
       // Send the order request to the server
-      const response = await axios.post('http://localhost:3000/orders', data, {
+      const response = await axios.post('https://direct-places.onrender.com/orders', data, {
         headers: {
           Authorization: `Bearer ${storedUser.token}`,
           'Content-Type': 'application/json',

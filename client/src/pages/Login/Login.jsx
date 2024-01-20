@@ -15,7 +15,7 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const response = await Axios.post(
-        'http://localhost:3000/auth/login',
+        'https://direct-places.onrender.com/auth/login',
         { email, password },
         { withCredentials: true }
       );
