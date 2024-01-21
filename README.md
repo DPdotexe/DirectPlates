@@ -58,7 +58,7 @@ To order your favorite dishes, follow these steps:
    git clone https://github.com/your-username/DirectPlates.git
    cd DirectPlates
    
-2. 
+2. Install dependencies:
  ```bash
 cd client && npm install
 cd server && npm install
