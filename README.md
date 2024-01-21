@@ -58,15 +58,14 @@ To order your favorite dishes, follow these steps:
    ```bash
    git clone https://github.com/your-username/DirectPlates.git
    cd DirectPlates
-   ```bash
+   
+2. 
 cd client && npm install
-cd server && npm install 
+cd && npm install
 
-cd server
-```bash
- "MONGODB_URI=your_mongodb_connection_string" > .env
-"JWT_SECRET=your_jwt_secret" >> .env
-```bash
+3. Create a .env file in the server directory with the following variables:
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
 
 Note: Replace your_mongodb_connection_string and your_jwt_secret with your specific MongoDB connection string and JWT secret.
 
