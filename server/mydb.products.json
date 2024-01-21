@@ -1,0 +1,340 @@
+[{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820ae"
+  },
+  "id": "P1",
+  "dish": "Spaghetti Carbonara",
+  "description": "Classic Roman pasta with a rich sauce of eggs, cheese, guanciale.",
+  "price": 12.99,
+  "imageUrl": "../images/pastacarbonara.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.229Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.229Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820b0"
+  },
+  "id": "P2",
+  "dish": "Fusilli Bolognese",
+  "description": "Classic Italian pasta with rich meat sauce and tomatoes.",
+  "price": 14.99,
+  "imageUrl": "../images/pastabolognese.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.242Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.242Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820b2"
+  },
+  "id": "P3",
+  "dish": "Seafood Noodles",
+  "description": "Shrimp, calamari, fish, and noodles in a flavorful broth.",
+  "price": 15.99,
+  "imageUrl": "../images/seafoodnoodles.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.245Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.245Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820b4"
+  },
+  "id": "P4",
+  "dish": "Ramen",
+  "description": "Japanese noodle soup with savory broth, topped with veggies, eggs.",
+  "price": 18.99,
+  "imageUrl": "../images/ramen.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.248Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.248Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820b6"
+  },
+  "id": "P5",
+  "dish": "Fried Chicken",
+  "description": "Crispy and succulent fried chicken, a delightful classic.",
+  "price": 16.99,
+  "imageUrl": "../images/friedchicken.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.250Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.250Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820b8"
+  },
+  "id": "P6",
+  "dish": "Beef Steak",
+  "description": "Juicy and flavorful grilled beef served with golden crispy potatoes.",
+  "price": 18.99,
+  "imageUrl": "../images/beefsteak.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.251Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.251Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820ba"
+  },
+  "id": "P7",
+  "dish": "Grilled Salmon",
+  "description": "Flavorful and tender grilled salmon, a seafood delight.",
+  "price": 24.99,
+  "imageUrl": "../images/grilledsalmon.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.253Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.253Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820bc"
+  },
+  "id": "P8",
+  "dish": "Vegetable Stir-Fry",
+  "description": "A colorful blend of crisp, stir-fried vegetables.",
+  "price": 14.99,
+  "imageUrl": "../images/vegetablestir-fry.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.256Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.256Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820be"
+  },
+  "id": "P9",
+  "dish": "Tiramisu",
+  "description": "Coffee-infused mascarpone layers—Italian delight.",
+  "price": 8.99,
+  "imageUrl": "../images/tiramisu.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.258Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.258Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820c0"
+  },
+  "id": "P10",
+  "dish": "Strawberry Cheesecake",
+  "description": "Creamy cheesecake, sweet strawberries—pure bliss.",
+  "price": 10.99,
+  "imageUrl": "../images/strawberrycheesecake.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.260Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.260Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820c2"
+  },
+  "id": "P11",
+  "dish": "Panna Cotta",
+  "description": "Italian custard dessert topped with caramel sauce.",
+  "price": 7.99,
+  "imageUrl": "../images/pannacotta.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.263Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.263Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820c4"
+  },
+  "id": "P12",
+  "dish": "Apple Pie",
+  "description": "Sweet apples, cinnamon, golden crust—a timeless favorite.",
+  "price": 8.99,
+  "imageUrl": "../images/applepie.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.266Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.266Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820c6"
+  },
+  "id": "P13",
+  "dish": "Margherita Pizza",
+  "description": "Fresh tomatoes, creamy mozzarella, and aromatic basil on a thin.",
+  "price": 14.99,
+  "imageUrl": "../images/margheritapizza.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.268Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.268Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820c8"
+  },
+  "id": "P14",
+  "dish": "Salami Pizza",
+  "description": "Salami slices, tomato sauce, melted mozzarella on a golden crust.",
+  "price": 16.99,
+  "imageUrl": "../images/salamipizza.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.269Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.269Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820ca"
+  },
+  "id": "P15",
+  "dish": "Seafood Pizza",
+  "description": "Shrimp, calamari, mussels on a tomato-cheese melody",
+  "price": 15.99,
+  "imageUrl": "../images/seafoodpizza.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.271Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.271Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820cc"
+  },
+  "id": "P16",
+  "dish": "Vegetarian Pizza",
+  "description": "Assorted vegetables and cheese on a thin crust",
+  "price": 20.99,
+  "imageUrl": "../images/vegetarianpizza.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.272Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.272Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820ce"
+  },
+  "id": "P17",
+  "dish": "Water",
+  "description": "Pure, refreshing water to quench your thirst.",
+  "price": 2.49,
+  "imageUrl": "../images/bottleofwater.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.274Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.274Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820d0"
+  },
+  "id": "P18",
+  "dish": "Pepsi",
+  "description": "The classic refreshment with irresistible bubbles.",
+  "price": 2.99,
+  "imageUrl": "../images/pepsi.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.276Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.276Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820d2"
+  },
+  "id": "P19",
+  "dish": "Coca-Cola",
+  "description": "An iconic classic, refreshing and invigorating. ",
+  "price": 1.49,
+  "imageUrl": "../images/coca-cola.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.277Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.277Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65a3300e17644d12b81820d4"
+  },
+  "id": "P20",
+  "dish": "Coffee",
+  "description": "Bold flavor, rich aroma. Your perfect companion for moments of delight",
+  "price": 3.49,
+  "imageUrl": "../images/coffee.png",
+  "created_at": {
+    "$date": "2024-01-14T00:51:26.279Z"
+  },
+  "updated_at": {
+    "$date": "2024-01-14T00:51:26.279Z"
+  },
+  "__v": 0
+}]
