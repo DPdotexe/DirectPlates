@@ -6,7 +6,7 @@ Welcome to DirectPlates, your go-to food delivery solution designed to provide y
 
 - **Menu Exploration:**
   - Browse our diverse menu with a wide selection of delicious dishes.
-  - View details such as ingredients, prices and description
+  - View details such as ingredients and prices
 
 - **Cart Management:**
   - Easily add your favorite dishes to the cart.
