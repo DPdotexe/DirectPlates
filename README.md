@@ -61,7 +61,7 @@ To order your favorite dishes, follow these steps:
    
 2. 
 cd client && npm install
-cd && npm install
+cd server && npm install
 
 3. Create a .env file in the server directory with the following variables:
 MONGODB_URI=your_mongodb_connection_string
