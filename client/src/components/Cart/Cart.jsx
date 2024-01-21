@@ -12,7 +12,6 @@ const Cart = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Removed log statement
   }, [cartItems]);
 
   const handleRemoveFromCart = (index) => {
@@ -29,7 +28,6 @@ const Cart = () => {
     return cartItems.reduce((total, item) => {
       const itemPrice = item.product?.price?.replace('$', '');
       const parsedPrice = itemPrice ? parseFloat(itemPrice) : 0;
-      // Removed log statement
       return total + parsedPrice * item.quantity;
     }, 0);
   };

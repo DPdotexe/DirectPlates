@@ -254,7 +254,7 @@
     return (
       <div className="menu-container">
         <Helmet>
-          <title>Menu - Your App Name</title>
+          <title>Menu - DirectPlates</title>
         </Helmet>
 
         <h1 className="menu-title">Menu</h1>
