@@ -81,3 +81,6 @@ This command uses concurrently to start both the client and server concurrently.
 
 5. The app will be available at http://localhost:3000
 
+## Author
+DP
+
