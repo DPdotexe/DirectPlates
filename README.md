@@ -2,7 +2,7 @@
 
 Welcome to DirectPlates, your go-to food delivery solution designed to provide you with a seamless culinary experience. Order your favorite dishes from our restaurant's menu right from the comfort of your home.
 
-You can it here ----> https://directplates.netlify.app/
+You can try it here ----> https://directplates.netlify.app/
 
 ## Key Features
 
