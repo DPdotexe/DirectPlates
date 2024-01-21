@@ -17,8 +17,7 @@ Welcome to DirectPlates, your go-to food delivery solution designed to provide y
   - Remove items from the cart with a simple action.
 
 - **User Account:**
-  - Register to access exclusive features.
-  - Effortlessly manage your order history and food preferences.
+  - Register to order our menu.
 
   **Additional User Profile Features:**
   - Once logged in, users can access their profile.
