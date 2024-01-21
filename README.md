@@ -60,13 +60,16 @@ To order your favorite dishes, follow these steps:
    cd DirectPlates
    
 2. 
+ ```bash
 cd client && npm install
 cd server && npm install
-
+ ```
 3. Create a .env file in the server directory with the following variables:
+
+```vbnet
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_jwt_secret
-
+```
 Note: Replace your_mongodb_connection_string and your_jwt_secret with your specific MongoDB connection string and JWT secret.
 
 4. Start the client and server in development mode simultaneously:
