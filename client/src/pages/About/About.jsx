@@ -8,7 +8,7 @@ const About = () => {
     <div className="about-container">
       {/* Helmet for dynamic page title */}
       <Helmet>
-        <title>About Us - DirectPlates</title>
+        <title>About - DirectPlates</title>
       </Helmet>
 
       {/* Main content of the About page */}

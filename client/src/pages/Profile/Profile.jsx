@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
 import { FaEdit } from 'react-icons/fa';
+import Loader from './Loader'; 
 import './Profile.css';
 
 const Profile = () => {
@@ -11,31 +12,28 @@ const Profile = () => {
     address: '',
     phoneNumber: '',
   });
-  
+
   // State to manage edit mode, loading state, and errors
   const [isEditMode, setIsEditMode] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Fetch user profile data from localStorage on component mount
   useEffect(() => {
-    // Retrieve user profile data from localStorage
     const storedUserProfile = localStorage.getItem('userProfile');
     const userProfile = storedUserProfile ? JSON.parse(storedUserProfile) : null;
 
     if (userProfile) {
-      // Set form data if user profile exists
       setFormData({
         username: userProfile.username || '',
         address: userProfile.address || '',
         phoneNumber: userProfile.phoneNumber || '',
       });
     } else {
-      // If no saved information, retrieve user data from localStorage
       const storedUserData = localStorage.getItem('user');
       const storedUser = storedUserData ? JSON.parse(storedUserData) : null;
 
       if (storedUser) {
-        // Set form data with user data
         setFormData({
           username: storedUser.username || '',
           address: storedUser.address || '',
@@ -57,7 +55,6 @@ const Profile = () => {
       setError(null);
       setIsLoading(true);
 
-      // Retrieve user data from localStorage
       const storedUserData = localStorage.getItem('user');
       const storedUser = storedUserData ? JSON.parse(storedUserData) : null;
 
@@ -107,7 +104,6 @@ const Profile = () => {
 
         if (error.response.status === 401) {
           console.error('Unauthorized access. Redirect to login page.');
-          // Add code here to redirect the user to the login page
         }
 
         setError('An error occurred during save.');
@@ -133,6 +129,7 @@ const Profile = () => {
           name="username"
           value={formData.username}
           onChange={handleInputChange}
+          disabled={isLoading} 
         />
 
         <div className="address-container">
@@ -144,7 +141,7 @@ const Profile = () => {
             placeholder="Enter your address here..."
             value={formData.address}
             onChange={handleInputChange}
-            disabled={!isEditMode}
+            disabled={!isEditMode || isLoading} 
           />
         </div>
 
@@ -157,12 +154,12 @@ const Profile = () => {
             placeholder="Enter your phone number..."
             value={formData.phoneNumber}
             onChange={handleInputChange}
-            disabled={!isEditMode}
+            disabled={!isEditMode || isLoading} 
           />
         </div>
 
         {!isEditMode ? (
-          <button type="button" onClick={() => setIsEditMode(true)}>
+          <button type="button" onClick={() => setIsEditMode(true)} disabled={isLoading}>
             <FaEdit /> Edit
           </button>
         ) : (
@@ -170,6 +167,7 @@ const Profile = () => {
             {isLoading ? 'Saving...' : 'Save'}
           </button>
         )}
+        {isLoading && <Loader />} {/* Show the loader during save */}
         {error && <div className="error-message">{error}</div>}
       </form>
     </div>
