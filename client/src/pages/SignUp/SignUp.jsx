@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from './../../AuthContext';
-import Loader from './Loader'; 
+import Loader from '../../components/Loader';
 import './SignUp.css';
 
 const SignUp = () => {
