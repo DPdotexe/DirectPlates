@@ -81,7 +81,6 @@ const SignUp = () => {
       </Helmet>
 
       <h2 className="header">Registration</h2>
-      {loading && <Loader />} {/* Show loader during loading */}
       {error && <p className="error">{error}</p>}
       <label className="label">Email:</label>
       <input
@@ -122,6 +121,7 @@ const SignUp = () => {
       <button onClick={handleSignup} className="button" disabled={loading}>
         Sign Up
       </button>
+      {loading && <Loader />} {/* Show loader during loading */}
       <p className="login-link">
         Already have an account?{' '}
         <Link to="/login" className="login-link-text">
