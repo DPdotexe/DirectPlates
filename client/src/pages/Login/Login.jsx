@@ -54,7 +54,6 @@ const Login = () => {
       </Helmet>
 
       <h2 className="header">Login</h2>
-      {loading && <Loader />} {/* Show loader during loading */}
       {error && <p className="error">{error}</p>}
       <label className="label">Email:</label>
       <input
@@ -77,6 +76,7 @@ const Login = () => {
       <button onClick={handleLogin} className="button" disabled={loading}>
         Login
       </button>
+      {loading && <Loader />} {/* Show loader during loading */}
       <p className="signup-link">
         Don't have an account? <Link to="/signup" className="signup-link-text">Sign up here</Link>.
       </p>
