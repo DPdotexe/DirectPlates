@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import axios from 'axios';
 import { FaEdit } from 'react-icons/fa';
-import Loader from './Loader'; 
+import Loader from '../../components/Loader';
 import './Profile.css';
 
 const Profile = () => {
