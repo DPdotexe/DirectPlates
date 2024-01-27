@@ -1,3 +1,5 @@
+// SignUp.jsx
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
@@ -121,9 +123,7 @@ const SignUp = () => {
       <button onClick={handleSignup} className="button" disabled={loading}>
         Sign Up
       </button>
-      {loading && <div className="loader-container">
-        <Loader />
-      </div>} {/* Show loader during loading */}
+      {loading && <Loader />} {/* Show loader during loading */}
       <p className="login-link">
         Already have an account?{' '}
         <Link to="/login" className="login-link-text">
