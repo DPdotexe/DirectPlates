@@ -121,7 +121,9 @@ const SignUp = () => {
       <button onClick={handleSignup} className="button" disabled={loading}>
         Sign Up
       </button>
-      {loading && <Loader />} {/* Show loader during loading */}
+      {loading && <div className="loader-container">
+        <Loader />
+      </div>} {/* Show loader during loading */}
       <p className="login-link">
         Already have an account?{' '}
         <Link to="/login" className="login-link-text">
