@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import { Helmet } from 'react-helmet-async';
 import { useAuth } from './../../AuthContext';
+import Loader from './Loader'; 
 import './SignUp.css';
 
 const SignUp = () => {
@@ -11,6 +12,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
@@ -31,6 +33,8 @@ const SignUp = () => {
     }
 
     try {
+      setLoading(true); // Set loader to true before fetching
+
       const response = await Axios.post(
         'https://direct-plates-server.onrender.com/auth/register',
         { email, username, password },
@@ -59,6 +63,8 @@ const SignUp = () => {
       } else {
         setError('Error during registration. Please try again.');
       }
+    } finally {
+      setLoading(false); // Set loader to false after fetching completes
     }
   };
 
@@ -75,6 +81,7 @@ const SignUp = () => {
       </Helmet>
 
       <h2 className="header">Registration</h2>
+      {loading && <Loader />} {/* Show loader during loading */}
       {error && <p className="error">{error}</p>}
       <label className="label">Email:</label>
       <input
@@ -83,6 +90,7 @@ const SignUp = () => {
         onChange={(e) => setEmail(e.target.value)}
         className="input"
         onKeyDown={handleKeyDown}
+        disabled={loading} 
       />
       <label className="label">Username:</label>
       <input
@@ -91,6 +99,7 @@ const SignUp = () => {
         onChange={(e) => setUsername(e.target.value)}
         className="input"
         onKeyDown={handleKeyDown}
+        disabled={loading} 
       />
       <label className="label">Password:</label>
       <input
@@ -99,6 +108,7 @@ const SignUp = () => {
         onChange={(e) => setPassword(e.target.value)}
         className="input"
         onKeyDown={handleKeyDown}
+        disabled={loading} 
       />
       <label className="label">Confirm Password:</label>
       <input
@@ -107,8 +117,9 @@ const SignUp = () => {
         onChange={(e) => setConfirmPassword(e.target.value)}
         className="input"
         onKeyDown={handleKeyDown}
+        disabled={loading} 
       />
-      <button onClick={handleSignup} className="button">
+      <button onClick={handleSignup} className="button" disabled={loading}>
         Sign Up
       </button>
       <p className="login-link">

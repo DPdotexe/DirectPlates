@@ -1,0 +1,21 @@
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .loader {
+    border: 8px solid #e34234;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: buffering 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes buffering {
+    0%, 100% { border-color: #f3f3f3; }
+    50% { border-color: #e34234; }
+  }
+  
