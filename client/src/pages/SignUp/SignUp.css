@@ -7,6 +7,8 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   max-height: 80vh;
+  margin-top: 20px; 
+  margin-bottom: 20px; 
 }
 
 /* Styling for the header in the sign-up container */
