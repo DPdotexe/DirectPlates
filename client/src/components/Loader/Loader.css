@@ -13,8 +13,8 @@
 .loader {
   border: 8px solid #e34234;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
   animation: buffering 1.5s ease-in-out infinite;
 }
 
